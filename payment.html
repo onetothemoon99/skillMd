@@ -1,0 +1,793 @@
+<!-- payment.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout — Pay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Design Tokens ─────────────────────────────────── */
+    :root {
+      --color-bg:       #f7f7f6;
+      --color-surface:  #ffffff;
+      --color-border:   #e8e8e6;
+      --color-text:     #0a0a0a;
+      --color-text-sub: #6b6b6b;
+      --color-accent:   #000000;
+      --color-muted:    #f0f0ef;
+
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+
+      --space-unit: 8px;
+      --radius-sm:  6px;
+      --radius-md:  12px;
+      --radius-pill: 50px;
+      --container:  1100px;
+
+      --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    }
+
+    /* ─── Reset ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--font);
+      background: var(--color-bg);
+      color: var(--color-text);
+      letter-spacing: -0.014em;
+      min-height: 100vh;
+    }
+    button { cursor: pointer; font-family: var(--font); border: none; background: none; }
+    input  { font-family: var(--font); outline: none; }
+    label  { display: block; }
+
+    /* ─── Header ─────────────────────────────────────────── */
+    .header {
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0 40px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header-logo {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      color: var(--color-text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .header-logo-dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      background: var(--color-text);
+      border-radius: 50%;
+    }
+    .header-secure {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--color-text-sub);
+      letter-spacing: -0.01em;
+    }
+
+    /* ─── Layout ─────────────────────────────────────────── */
+    .page {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 48px 40px 80px;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* ─── Section label ──────────────────────────────────── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-sub);
+      margin-bottom: 16px;
+    }
+
+    /* ─── Left Column ────────────────────────────────────── */
+    .checkout-left { display: flex; flex-direction: column; gap: 24px; }
+
+    /* ─── Card ───────────────────────────────────────────── */
+    .card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      padding: 28px 32px;
+      box-shadow: var(--shadow-card);
+    }
+
+    /* ─── Payment Method Tabs ────────────────────────────── */
+    .method-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .method-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: var(--radius-pill);
+      border: 1.5px solid var(--color-border);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--color-text-sub);
+      background: var(--color-surface);
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+    }
+    .method-tab.active {
+      border-color: var(--color-text);
+      background: var(--color-text);
+      color: #fff;
+    }
+    .method-tab:not(.active):hover {
+      border-color: #bbb;
+      color: var(--color-text);
+    }
+    .method-tab:focus-visible {
+      outline: 2px dashed var(--color-text);
+      outline-offset: 2px;
+    }
+
+    /* ─── Card Preview ───────────────────────────────────── */
+    .card-preview {
+      background: var(--color-text);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card-preview::before {
+      content: '';
+      position: absolute;
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      top: -60px; right: -60px;
+      pointer-events: none;
+    }
+    .card-preview::after {
+      content: '';
+      position: absolute;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.03);
+      bottom: -40px; left: -40px;
+      pointer-events: none;
+    }
+    .card-preview-chip {
+      width: 36px; height: 26px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 5px;
+    }
+    .card-preview-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card-preview-brand {
+      display: flex;
+    }
+    .card-preview-brand .c1 {
+      display: block;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.7);
+    }
+    .card-preview-brand .c2 {
+      display: block;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      margin-left: -8px;
+    }
+    .card-preview-number {
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.9);
+      font-variant-numeric: tabular-nums;
+      text-align: center;
+    }
+    .card-preview-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .card-preview-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 2px;
+    }
+    .card-preview-value {
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* ─── Form ───────────────────────────────────────────── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 7px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-label {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--color-text-sub);
+    }
+    .form-input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+      background: var(--color-surface);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .form-input::placeholder { color: #c0c0be; }
+    .form-input:focus {
+      border-color: var(--color-text);
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+    }
+    .form-input:focus-visible {
+      outline: 2px dashed var(--color-text);
+      outline-offset: 2px;
+    }
+    .input-wrapper { position: relative; }
+    .input-icon {
+      position: absolute;
+      right: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-text-sub);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+    }
+    .input-wrapper .form-input { padding-right: 42px; }
+
+    /* ─── Toggle ─────────────────────────────────────────── */
+    .save-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .toggle {
+      position: relative;
+      width: 36px; height: 20px;
+      flex-shrink: 0;
+    }
+    .toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+    .toggle-track {
+      position: absolute;
+      inset: 0;
+      background: var(--color-border);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .toggle input:checked + .toggle-track { background: var(--color-text); }
+    .toggle-track::before {
+      content: '';
+      position: absolute;
+      width: 14px; height: 14px;
+      background: #fff;
+      border-radius: 50%;
+      top: 3px; left: 3px;
+      transition: transform 0.2s;
+    }
+    .toggle input:checked + .toggle-track::before { transform: translateX(16px); }
+    .save-label {
+      font-size: 14px;
+      letter-spacing: -0.01em;
+      color: var(--color-text-sub);
+    }
+
+    /* ─── CTA ────────────────────────────────────────────── */
+    .btn-pay {
+      width: 100%;
+      padding: 15px 24px;
+      background: var(--color-text);
+      color: #fff;
+      border-radius: var(--radius-pill);
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity 0.15s, transform 0.12s;
+    }
+    .btn-pay:hover { opacity: 0.85; }
+    .btn-pay:active { transform: scale(0.99); }
+    .btn-pay:focus-visible {
+      outline: 2px dashed var(--color-text);
+      outline-offset: 3px;
+    }
+    .btn-pay-amount { font-weight: 700; }
+
+    .security-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--color-text-sub);
+      letter-spacing: -0.005em;
+    }
+
+    /* ─── Order Summary ──────────────────────────────────── */
+    .summary-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      position: sticky;
+      top: 24px;
+    }
+    .summary-header {
+      padding: 22px 28px 18px;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .summary-title {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+    }
+    .summary-edit {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-text-sub);
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      transition: color 0.12s;
+    }
+    .summary-edit:hover { color: var(--color-text); }
+
+    .summary-items {
+      padding: 18px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .item-image {
+      width: 52px; height: 52px;
+      border-radius: var(--radius-sm);
+      background: var(--color-muted);
+      flex-shrink: 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .item-image img { width: 100%; height: 100%; object-fit: cover; }
+    .item-badge {
+      position: absolute;
+      top: -5px; right: -5px;
+      width: 18px; height: 18px;
+      background: var(--color-text);
+      color: #fff;
+      border-radius: 50%;
+      font-size: 10px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .item-info { flex: 1; min-width: 0; }
+    .item-name {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 3px;
+    }
+    .item-variant { font-size: 12px; color: var(--color-text-sub); }
+    .item-price {
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      flex-shrink: 0;
+    }
+
+    .divider { height: 1px; background: var(--color-border); margin: 0 28px; }
+
+    /* Promo */
+    .promo-section { padding: 18px 28px; }
+    .promo-row { display: flex; gap: 8px; }
+    .promo-input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius-pill);
+      font-size: 13px;
+      letter-spacing: -0.01em;
+      color: var(--color-text);
+      background: var(--color-bg);
+      transition: border-color 0.15s;
+    }
+    .promo-input::placeholder { color: #c0c0be; }
+    .promo-input:focus { border-color: var(--color-text); outline: none; }
+    .promo-btn {
+      padding: 10px 18px;
+      border-radius: var(--radius-pill);
+      border: 1.5px solid var(--color-border);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--color-text);
+      background: var(--color-surface);
+      transition: background 0.15s;
+    }
+    .promo-btn:hover { background: var(--color-muted); }
+
+    /* Lines */
+    .summary-lines {
+      padding: 16px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .summary-line-label { font-size: 14px; color: var(--color-text-sub); }
+    .summary-line-value { font-size: 14px; font-weight: 500; letter-spacing: -0.02em; }
+    .summary-line-value.free { color: #16a34a; }
+
+    .summary-total {
+      padding: 18px 28px;
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .summary-total-label { font-size: 15px; font-weight: 600; letter-spacing: -0.03em; }
+    .summary-total-value { font-size: 22px; font-weight: 700; letter-spacing: -0.04em; }
+
+    /* ─── Responsive ─────────────────────────────────────── */
+    @media (max-width: 820px) {
+      .page {
+        grid-template-columns: 1fr;
+        padding: 24px 20px 60px;
+        gap: 24px;
+      }
+      .summary-card { position: static; }
+      .header { padding: 0 20px; }
+      .card { padding: 22px 20px; }
+      .card-preview-number { font-size: 15px; letter-spacing: 0.08em; }
+    }
+    @media (max-width: 480px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: 1; }
+      .method-tabs { gap: 8px; }
+      .method-tab { padding: 8px 14px; font-size: 13px; }
+    }
+
+    /* ─── Spin animation ─────────────────────────────────── */
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <a href="#" class="header-logo">
+      acme <span class="header-logo-dot"></span>
+    </a>
+    <div class="header-secure">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+      Secure checkout
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="page">
+
+    <!-- Left: Form -->
+    <div class="checkout-left">
+
+      <!-- Payment method -->
+      <div class="card">
+        <p class="section-label">Payment method</p>
+
+        <div class="method-tabs" role="tablist">
+          <button class="method-tab active" role="tab" aria-selected="true">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+            </svg>
+            Card
+          </button>
+          <button class="method-tab" role="tab" aria-selected="false">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.315 2.42 1.002 4.135-.783 4.228-3.47 6.505-7.925 6.505H9.61c-.57 0-1.046.413-1.14.978l-.03.154-1.001 6.34-.036.183a.638.638 0 0 1-.327.032z"/>
+            </svg>
+            PayPal
+          </button>
+          <button class="method-tab" role="tab" aria-selected="false">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
+            </svg>
+            Bank transfer
+          </button>
+        </div>
+
+        <!-- Live card preview -->
+        <div class="card-preview" aria-hidden="true">
+          <div class="card-preview-top">
+            <div class="card-preview-chip"></div>
+            <div class="card-preview-brand">
+              <span class="c1"></span>
+              <span class="c2"></span>
+            </div>
+          </div>
+          <div class="card-preview-number" id="preview-number">•••• •••• •••• ••••</div>
+          <div class="card-preview-bottom">
+            <div>
+              <div class="card-preview-label">Card holder</div>
+              <div class="card-preview-value" id="preview-name">Full name</div>
+            </div>
+            <div>
+              <div class="card-preview-label">Expires</div>
+              <div class="card-preview-value" id="preview-expiry">MM / YY</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card form -->
+        <div class="form-grid">
+          <div class="form-group full">
+            <label class="form-label" for="card-number">Card number</label>
+            <div class="input-wrapper">
+              <input class="form-input" type="text" id="card-number" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric" autocomplete="cc-number" />
+              <span class="input-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group full">
+            <label class="form-label" for="card-name">Cardholder name</label>
+            <input class="form-input" type="text" id="card-name" placeholder="As shown on card" autocomplete="cc-name" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="card-expiry">Expiry</label>
+            <input class="form-input" type="text" id="card-expiry" placeholder="MM / YY" maxlength="7" inputmode="numeric" autocomplete="cc-exp" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="card-cvc">Security code</label>
+            <div class="input-wrapper">
+              <input class="form-input" type="text" id="card-cvc" placeholder="CVC" maxlength="4" inputmode="numeric" autocomplete="cc-csc" />
+              <span class="input-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Save toggle -->
+        <div class="save-row">
+          <label class="toggle">
+            <input type="checkbox" id="save-card" />
+            <div class="toggle-track"></div>
+          </label>
+          <span class="save-label">Save card for future purchases</span>
+        </div>
+      </div>
+
+      <!-- Confirm -->
+      <div class="card" style="padding: 24px 32px;">
+        <button class="btn-pay" id="pay-btn" type="button" onclick="handlePay()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          Pay <span class="btn-pay-amount">$148.00</span>
+        </button>
+        <p class="security-note">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          256-bit SSL encrypted &middot; PCI DSS compliant
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Right: Summary -->
+    <aside>
+      <div class="summary-card">
+
+        <div class="summary-header">
+          <h2 class="summary-title">Order summary</h2>
+          <a href="#" class="summary-edit">Edit cart</a>
+        </div>
+
+        <div class="summary-items">
+          <div class="item">
+            <div class="item-image">
+              <img src="https://picsum.photos/seed/item11/104/104" alt="Wireless Headphones" />
+              <div class="item-badge">1</div>
+            </div>
+            <div class="item-info">
+              <div class="item-name">Wireless Headphones Pro</div>
+              <div class="item-variant">Midnight Black &middot; Over-ear</div>
+            </div>
+            <div class="item-price">$89.00</div>
+          </div>
+
+          <div class="item">
+            <div class="item-image">
+              <img src="https://picsum.photos/seed/item22/104/104" alt="USB-C Cable" />
+              <div class="item-badge">2</div>
+            </div>
+            <div class="item-info">
+              <div class="item-name">Braided USB-C Cable 2m</div>
+              <div class="item-variant">Space Gray &middot; USB 3.2</div>
+            </div>
+            <div class="item-price">$29.00</div>
+          </div>
+
+          <div class="item">
+            <div class="item-image">
+              <img src="https://picsum.photos/seed/item33/104/104" alt="Carry Case" />
+              <div class="item-badge">1</div>
+            </div>
+            <div class="item-info">
+              <div class="item-name">Travel Carry Case</div>
+              <div class="item-variant">Sand &middot; EVA Shell</div>
+            </div>
+            <div class="item-price">$24.00</div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="promo-section">
+          <p class="section-label">Promo code</p>
+          <div class="promo-row">
+            <input class="promo-input" type="text" placeholder="Enter code" />
+            <button class="promo-btn">Apply</button>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="summary-lines">
+          <div class="summary-line">
+            <span class="summary-line-label">Subtotal (4 items)</span>
+            <span class="summary-line-value">$142.00</span>
+          </div>
+          <div class="summary-line">
+            <span class="summary-line-label">Shipping</span>
+            <span class="summary-line-value free">Free</span>
+          </div>
+          <div class="summary-line">
+            <span class="summary-line-label">Tax (VAT 7%)</span>
+            <span class="summary-line-value">$6.00</span>
+          </div>
+        </div>
+
+        <div class="summary-total">
+          <span class="summary-total-label">Total</span>
+          <span class="summary-total-value">$148.00</span>
+        </div>
+
+      </div>
+    </aside>
+
+  </main>
+
+  <script>
+    // Live card number preview
+    document.getElementById('card-number').addEventListener('input', function() {
+      let v = this.value.replace(/\D/g, '').slice(0, 16);
+      let fmt = v.replace(/(.{4})/g, '$1 ').trim();
+      this.value = fmt;
+      if (!v) {
+        document.getElementById('preview-number').textContent = '•••• •••• •••• ••••';
+      } else {
+        let display = fmt;
+        while (display.replace(/\s/g, '').length < 16) display += '•';
+        // pad groups
+        let parts = v.padEnd(16, '•').match(/.{1,4}/g) || [];
+        document.getElementById('preview-number').textContent = parts.join('  ');
+      }
+    });
+
+    // Live name preview
+    document.getElementById('card-name').addEventListener('input', function() {
+      document.getElementById('preview-name').textContent = this.value.toUpperCase() || 'Full name';
+    });
+
+    // Live expiry preview + auto-format
+    document.getElementById('card-expiry').addEventListener('input', function() {
+      let v = this.value.replace(/\D/g, '').slice(0, 4);
+      if (v.length >= 3) v = v.slice(0, 2) + ' / ' + v.slice(2);
+      this.value = v;
+      document.getElementById('preview-expiry').textContent = v || 'MM / YY';
+    });
+
+    // Tab switching
+    document.querySelectorAll('.method-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.method-tab').forEach(function(t) {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        this.classList.add('active');
+        this.setAttribute('aria-selected', 'true');
+      });
+    });
+
+    // Pay button
+    function handlePay() {
+      var btn = document.getElementById('pay-btn');
+      btn.disabled = true;
+      btn.style.opacity = '0.65';
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation:spin 0.75s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Processing…';
+
+      setTimeout(function() {
+        btn.style.background = '#16a34a';
+        btn.style.opacity = '1';
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Payment confirmed!';
+      }, 1800);
+    }
+  </script>
+</body>
+</html>

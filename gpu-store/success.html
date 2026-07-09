@@ -1,0 +1,307 @@
+<!-- success.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Confirmed — VoltCore</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-bg: #FAFAFA;
+      --color-surface: #FFFFFF;
+      --color-surface-2: #F4F4F5;
+      --color-accent: #3B7FF0;
+      --color-accent-dark: #2563EB;
+      --color-text: #18181B;
+      --color-text-sub: #71717A;
+      --color-border: #E4E4E7;
+      --font: 'Inter', sans-serif;
+    }
+    * { font-family: var(--font); box-sizing: border-box; }
+    body { background: var(--color-bg); color: var(--color-text); margin: 0; }
+
+    .nav-blur { background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); border-bottom: 1px solid var(--color-border); position: fixed; top: 0; left: 0; right: 0; z-index: 50; height: 64px; display: flex; align-items: center; padding: 0 24px; justify-content: space-between; }
+
+    /* Success animation */
+    @keyframes scaleIn { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes fadeUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .success-icon { animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+    .fade-up { animation: fadeUp 0.5s ease forwards; }
+    .fade-up-1 { animation-delay: 0.15s; opacity: 0; }
+    .fade-up-2 { animation-delay: 0.25s; opacity: 0; }
+    .fade-up-3 { animation-delay: 0.35s; opacity: 0; }
+    .fade-up-4 { animation-delay: 0.45s; opacity: 0; }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before { content: ''; position: absolute; left: 9px; top: 8px; bottom: 8px; width: 2px; background: var(--color-border); }
+    .timeline-item { position: relative; margin-bottom: 24px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-dot { position: absolute; left: -32px; top: 2px; width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--color-border); background: var(--color-surface); display: flex; align-items: center; justify-content: center; }
+    .timeline-dot.done { background: #22C55E; border-color: #22C55E; }
+    .timeline-dot.active { background: var(--color-accent); border-color: var(--color-accent); }
+
+    .btn-primary { background: var(--color-accent); color: #fff; font-weight: 600; border-radius: 12px; padding: 13px 24px; border: none; cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; text-decoration: none; }
+    .btn-primary:hover { background: var(--color-accent-dark); box-shadow: 0 4px 16px rgba(59,127,240,0.3); transform: translateY(-1px); }
+    .btn-ghost { background: transparent; color: var(--color-text); font-weight: 500; border-radius: 12px; padding: 13px 24px; border: 1px solid var(--color-border); cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; text-decoration: none; }
+    .btn-ghost:hover { background: var(--color-surface-2); }
+
+    .order-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--color-border); font-size: 14px; }
+    .order-row:last-child { border-bottom: none; }
+  </style>
+</head>
+<body>
+
+  <!-- CHECKOUT NAV -->
+  <nav class="nav-blur">
+    <a href="index.html" class="flex items-center gap-2.5 no-underline">
+      <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:var(--color-accent)">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M9 1L2 9h6l-1 6 7-8H8l1-6z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/></svg>
+      </div>
+      <span style="font-size:16px;font-weight:700;letter-spacing:-0.02em;color:var(--color-text);">VoltCore</span>
+    </a>
+
+    <!-- Steps -->
+    <div class="hidden md:flex items-center gap-2">
+      <div class="flex items-center gap-2">
+        <div style="width:28px;height:28px;border-radius:50%;background:#22C55E;display:flex;align-items:center;justify-content:center;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <span style="font-size:13px;font-weight:500;color:var(--color-text-sub);">Cart</span>
+      </div>
+      <div style="width:32px;height:1px;background:var(--color-border);"></div>
+      <div class="flex items-center gap-2">
+        <div style="width:28px;height:28px;border-radius:50%;background:#22C55E;display:flex;align-items:center;justify-content:center;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <span style="font-size:13px;font-weight:500;color:var(--color-text-sub);">Checkout</span>
+      </div>
+      <div style="width:32px;height:1px;background:var(--color-border);"></div>
+      <div class="flex items-center gap-2">
+        <div style="width:28px;height:28px;border-radius:50%;background:#22C55E;display:flex;align-items:center;justify-content:center;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <span style="font-size:13px;font-weight:700;color:var(--color-text);">Confirmation</span>
+      </div>
+    </div>
+
+    <div style="width:80px;"></div>
+  </nav>
+
+  <div style="padding-top:80px;padding-bottom:80px;">
+    <div class="max-w-screen-lg mx-auto px-6">
+
+      <!-- SUCCESS HERO -->
+      <div style="text-align:center;padding:48px 0 40px 0;">
+        <!-- Animated checkmark -->
+        <div class="success-icon" style="width:80px;height:80px;background:linear-gradient(135deg,#22C55E,#16A34A);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px auto;box-shadow:0 8px 32px rgba(34,197,94,0.3);">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6 9 17l-5-5"/>
+          </svg>
+        </div>
+
+        <div class="fade-up fade-up-1">
+          <div style="display:inline-flex;align-items:center;gap:6px;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:100px;padding:6px 14px;font-size:13px;font-weight:600;color:#15803D;margin-bottom:16px;">
+            <svg width="12" height="12" fill="#22C55E" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/></svg>
+            Order Confirmed
+          </div>
+        </div>
+
+        <h1 class="fade-up fade-up-2" style="font-size:2.5rem;font-weight:800;letter-spacing:-0.04em;margin:0 0 12px 0;">
+          Thank you, Alex!
+        </h1>
+        <p class="fade-up fade-up-3" style="font-size:16px;color:var(--color-text-sub);margin:0 0 6px 0;">
+          Your order <strong style="color:var(--color-text);">#VC-2026-84713</strong> has been placed successfully.
+        </p>
+        <p class="fade-up fade-up-4" style="font-size:14px;color:var(--color-text-sub);margin:0;">
+          A confirmation email has been sent to <strong>alex@example.com</strong>
+        </p>
+      </div>
+
+      <!-- MAIN CONTENT GRID -->
+      <div class="grid md:grid-cols-5 gap-8">
+
+        <!-- LEFT: Order details + tracking -->
+        <div class="md:col-span-3">
+
+          <!-- Order items -->
+          <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:16px;padding:24px;margin-bottom:16px;">
+            <div style="font-size:16px;font-weight:700;margin-bottom:20px;">Items Ordered</div>
+
+            <div style="display:flex;gap:14px;align-items:flex-start;padding-bottom:16px;border-bottom:1px solid var(--color-border);margin-bottom:16px;">
+              <div style="width:80px;height:64px;background:#F0F0F2;border-radius:10px;overflow:hidden;flex-shrink:0;">
+                <img src="https://picsum.photos/seed/gpu-5080-main/160/128" alt="RTX 5080" style="width:100%;height:100%;object-fit:cover;" />
+              </div>
+              <div class="flex-1">
+                <div style="font-size:14px;font-weight:700;">NVIDIA GeForce RTX 5080 FE</div>
+                <div style="font-size:12px;color:var(--color-text-sub);margin-top:3px;">16GB GDDR7 · Qty: 1</div>
+              </div>
+              <div style="font-size:15px;font-weight:800;">$999</div>
+            </div>
+
+            <div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:20px;">
+              <div style="width:80px;height:64px;background:#F0F0F2;border-radius:10px;overflow:hidden;flex-shrink:0;">
+                <img src="https://picsum.photos/seed/gpu-5070/160/128" alt="RTX 5070" style="width:100%;height:100%;object-fit:cover;" />
+              </div>
+              <div class="flex-1">
+                <div style="font-size:14px;font-weight:700;">NVIDIA GeForce RTX 5070</div>
+                <div style="font-size:12px;color:var(--color-text-sub);margin-top:3px;">12GB GDDR7 · Qty: 1</div>
+              </div>
+              <div style="font-size:15px;font-weight:800;">$749</div>
+            </div>
+
+            <div style="border-top:1px solid var(--color-border);padding-top:14px;display:flex;flex-direction:column;gap:8px;">
+              <div class="order-row"><span style="color:var(--color-text-sub);">Subtotal</span><span style="font-weight:600;">$1,748</span></div>
+              <div class="order-row"><span style="color:var(--color-text-sub);">Shipping</span><span style="font-weight:600;color:#15803D;">Free</span></div>
+              <div class="order-row"><span style="color:var(--color-text-sub);">Tax</span><span style="font-weight:600;">$122.36</span></div>
+              <div style="display:flex;justify-content:space-between;padding-top:12px;border-top:2px solid var(--color-border);">
+                <span style="font-size:16px;font-weight:800;">Total Charged</span>
+                <span style="font-size:20px;font-weight:800;">$1,870.36</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tracking timeline -->
+          <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:16px;padding:24px;">
+            <div style="font-size:16px;font-weight:700;margin-bottom:6px;">Tracking Your Order</div>
+            <div style="font-size:13px;color:var(--color-text-sub);margin-bottom:24px;">Tracking number: <strong style="color:var(--color-text);">1Z999AA10123456784</strong></div>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-dot done">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </div>
+                <div style="font-size:14px;font-weight:600;color:var(--color-text);">Order Placed</div>
+                <div style="font-size:12px;color:var(--color-text-sub);">Apr 16, 2026 · 11:42 AM</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot active">
+                  <div style="width:6px;height:6px;background:#fff;border-radius:50%;"></div>
+                </div>
+                <div style="font-size:14px;font-weight:600;color:var(--color-text);">Processing &amp; QA Check</div>
+                <div style="font-size:12px;color:var(--color-text-sub);">Estimated: Apr 16, 2026 · 3:00 PM</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot" style="border-color:var(--color-border);">
+                  <div style="width:6px;height:6px;background:var(--color-border);border-radius:50%;"></div>
+                </div>
+                <div style="font-size:14px;font-weight:500;color:var(--color-text-sub);">Shipped</div>
+                <div style="font-size:12px;color:var(--color-text-sub);">Estimated: Apr 16, 2026 · 8:00 PM</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot" style="border-color:var(--color-border);">
+                  <div style="width:6px;height:6px;background:var(--color-border);border-radius:50%;"></div>
+                </div>
+                <div style="font-size:14px;font-weight:500;color:var(--color-text-sub);">Out for Delivery</div>
+                <div style="font-size:12px;color:var(--color-text-sub);">Estimated: Apr 18, 2026 · Morning</div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot" style="border-color:var(--color-border);">
+                  <div style="width:6px;height:6px;background:var(--color-border);border-radius:50%;"></div>
+                </div>
+                <div style="font-size:14px;font-weight:500;color:var(--color-text-sub);">Delivered</div>
+                <div style="font-size:12px;color:var(--color-text-sub);">Estimated: Wednesday, April 18, 2026</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Delivery + Account info -->
+        <div class="md:col-span-2 flex flex-col gap-4">
+
+          <!-- Delivery details -->
+          <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:16px;padding:24px;">
+            <div style="font-size:15px;font-weight:700;margin-bottom:16px;">Delivery Details</div>
+            <div style="margin-bottom:16px;">
+              <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-text-sub);margin-bottom:6px;">Shipping To</div>
+              <div style="font-size:14px;font-weight:600;">Alex Mitchell</div>
+              <div style="font-size:14px;color:var(--color-text-sub);line-height:1.6;">1234 Main Street, Apt 4B<br/>San Francisco, CA 94105</div>
+            </div>
+            <div style="margin-bottom:16px;">
+              <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-text-sub);margin-bottom:6px;">Shipping Method</div>
+              <div style="font-size:14px;font-weight:600;color:#15803D;">Free 2-Day Shipping</div>
+            </div>
+            <div>
+              <div style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-text-sub);margin-bottom:6px;">Estimated Arrival</div>
+              <div style="font-size:14px;font-weight:700;">Wednesday, April 18, 2026</div>
+            </div>
+          </div>
+
+          <!-- Payment summary -->
+          <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:16px;padding:24px;">
+            <div style="font-size:15px;font-weight:700;margin-bottom:16px;">Payment</div>
+            <div class="flex items-center gap-3">
+              <div style="width:40px;height:28px;background:#1A1F71;border-radius:4px;display:flex;align-items:center;justify-content:center;">
+                <span style="color:#fff;font-size:8px;font-weight:800;">VISA</span>
+              </div>
+              <div>
+                <div style="font-size:14px;font-weight:600;">Visa ending in 4242</div>
+                <div style="font-size:12px;color:var(--color-text-sub);">$1,870.36 charged</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Need help? -->
+          <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:16px;padding:24px;">
+            <div style="font-size:15px;font-weight:700;color:#1D4ED8;margin-bottom:8px;">Need help?</div>
+            <p style="font-size:13px;color:#3B82F6;line-height:1.6;margin:0 0 16px 0;">Our GPU specialists are available 24/7. Reach out with any questions about your order.</p>
+            <a href="#" style="font-size:13px;font-weight:600;color:#2563EB;text-decoration:none;display:flex;align-items:center;gap:6px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Chat with Support
+            </a>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col gap-3">
+            <a href="products.html" class="btn-primary">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              Continue Shopping
+            </a>
+            <a href="#" class="btn-ghost" style="justify-content:center;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download Receipt
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Referral banner -->
+      <div style="margin-top:32px;background:linear-gradient(135deg,#0f0f1a,#1a1a3e);border-radius:20px;padding:32px 40px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;">
+        <div>
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#93c5fd;margin-bottom:8px;">Refer a Friend</div>
+          <div style="font-size:1.25rem;font-weight:800;color:#fff;margin-bottom:6px;">Earn $50 credit for each referral</div>
+          <div style="font-size:14px;color:#71717a;">Share your unique link. When they buy, you both save.</div>
+        </div>
+        <div>
+          <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:10px 16px;display:flex;align-items:center;gap:12px;">
+            <span style="font-size:13px;color:#a1a1aa;font-family:monospace;">voltcore.com/ref/ALEX50</span>
+            <button style="background:var(--color-accent);color:#fff;border:none;border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;" onclick="navigator.clipboard.writeText('voltcore.com/ref/ALEX50');this.textContent='Copied!'">Copy</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer style="background:var(--color-surface);border-top:1px solid var(--color-border);padding:32px 0 24px 0;">
+    <div class="max-w-screen-xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <a href="index.html" class="flex items-center gap-2 no-underline">
+        <div class="w-7 h-7 rounded-lg flex items-center justify-center" style="background:var(--color-accent)">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M9 1L2 9h6l-1 6 7-8H8l1-6z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/></svg>
+        </div>
+        <span style="font-size:14px;font-weight:700;color:var(--color-text);">VoltCore</span>
+      </a>
+      <div style="font-size:13px;color:var(--color-text-sub);">© 2026 VoltCore. All rights reserved.</div>
+      <div class="flex items-center gap-4">
+        <a href="#" style="font-size:13px;color:var(--color-text-sub);text-decoration:none;">Privacy</a>
+        <a href="#" style="font-size:13px;color:var(--color-text-sub);text-decoration:none;">Terms</a>
+        <a href="#" style="font-size:13px;color:var(--color-text-sub);text-decoration:none;">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

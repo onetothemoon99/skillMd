@@ -1,0 +1,353 @@
+<!-- checkout.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout — VoltCore</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-bg: #FAFAFA;
+      --color-surface: #FFFFFF;
+      --color-surface-2: #F4F4F5;
+      --color-accent: #3B7FF0;
+      --color-accent-dark: #2563EB;
+      --color-text: #18181B;
+      --color-text-sub: #71717A;
+      --color-border: #E4E4E7;
+      --font: 'Inter', sans-serif;
+    }
+    * { font-family: var(--font); box-sizing: border-box; }
+    body { background: var(--color-bg); color: var(--color-text); margin: 0; }
+
+    /* Minimal checkout nav */
+    .checkout-nav { background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); border-bottom: 1px solid var(--color-border); position: fixed; top: 0; left: 0; right: 0; z-index: 50; height: 64px; display: flex; align-items: center; padding: 0 24px; justify-content: space-between; }
+
+    /* Steps indicator */
+    .step { display: flex; align-items: center; gap: 8px; }
+    .step-circle { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+    .step-circle.done { background: #22C55E; color: #fff; }
+    .step-circle.active { background: var(--color-accent); color: #fff; }
+    .step-circle.pending { background: var(--color-surface-2); color: var(--color-text-sub); border: 1px solid var(--color-border); }
+    .step-label { font-size: 13px; font-weight: 500; }
+    .step-label.active { color: var(--color-text); }
+    .step-label.pending { color: var(--color-text-sub); }
+    .step-divider { width: 32px; height: 1px; background: var(--color-border); }
+
+    /* Form */
+    .form-field { margin-bottom: 16px; }
+    .form-label { font-size: 13px; font-weight: 500; color: var(--color-text); display: block; margin-bottom: 6px; }
+    .form-input { width: 100%; border: 1px solid var(--color-border); border-radius: 10px; padding: 12px 14px; font-size: 14px; color: var(--color-text); background: var(--color-surface); outline: none; transition: border-color 0.15s; font-family: var(--font); }
+    .form-input:focus { border-color: var(--color-accent); box-shadow: 0 0 0 3px rgba(59,127,240,0.1); }
+    .form-input::placeholder { color: #A1A1AA; }
+    .form-select { width: 100%; border: 1px solid var(--color-border); border-radius: 10px; padding: 12px 14px; font-size: 14px; color: var(--color-text); background: var(--color-surface); outline: none; appearance: none; cursor: pointer; font-family: var(--font); }
+    .form-select:focus { border-color: var(--color-accent); }
+
+    /* Section card */
+    .section-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 16px; padding: 24px; margin-bottom: 16px; }
+    .section-title { font-size: 16px; font-weight: 700; color: var(--color-text); margin: 0 0 20px 0; }
+
+    /* Payment method option */
+    .pay-option { border: 2px solid var(--color-border); border-radius: 12px; padding: 14px 16px; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: all 0.15s; margin-bottom: 10px; }
+    .pay-option:hover { border-color: #93C5FD; }
+    .pay-option.selected { border-color: var(--color-accent); background: #EFF6FF; }
+    .pay-option input[type="radio"] { accent-color: var(--color-accent); }
+
+    /* Shipping option */
+    .ship-option { border: 2px solid var(--color-border); border-radius: 12px; padding: 14px 16px; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: all 0.15s; margin-bottom: 10px; }
+    .ship-option:hover { border-color: #93C5FD; }
+    .ship-option.selected { border-color: var(--color-accent); background: #EFF6FF; }
+
+    /* Summary */
+    .summary-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--color-border); font-size: 14px; }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-total { display: flex; justify-content: space-between; padding: 14px 0 0 0; border-top: 2px solid var(--color-border); margin-top: 4px; }
+
+    .btn-primary { background: var(--color-accent); color: #fff; font-weight: 700; border-radius: 12px; padding: 15px 24px; border: none; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 8px; font-size: 15px; justify-content: center; width: 100%; }
+    .btn-primary:hover { background: var(--color-accent-dark); box-shadow: 0 4px 20px rgba(59,127,240,0.35); transform: translateY(-1px); }
+
+    .badge-green { background: #F0FDF4; color: #15803D; display: inline-flex; align-items: center; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 6px; }
+
+    /* Card number input group */
+    .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 640px) { .card-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <!-- CHECKOUT NAV -->
+  <nav class="checkout-nav">
+    <a href="index.html" class="flex items-center gap-2 no-underline">
+      <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:var(--color-accent)">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M9 1L2 9h6l-1 6 7-8H8l1-6z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/></svg>
+      </div>
+      <span style="font-size:16px;font-weight:700;letter-spacing:-0.02em;color:var(--color-text);">VoltCore</span>
+    </a>
+
+    <!-- Steps -->
+    <div class="hidden md:flex items-center gap-2">
+      <div class="step">
+        <div class="step-circle done">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <span class="step-label" style="color:var(--color-text-sub);">Cart</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step">
+        <div class="step-circle active">2</div>
+        <span class="step-label active">Checkout</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step">
+        <div class="step-circle pending">3</div>
+        <span class="step-label pending">Confirmation</span>
+      </div>
+    </div>
+
+    <div style="font-size:13px;color:var(--color-text-sub);">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-2px;margin-right:4px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      SSL Secured
+    </div>
+  </nav>
+
+  <div style="padding-top:80px;padding-bottom:60px;">
+    <div class="max-w-screen-xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8">
+
+        <!-- LEFT: Form -->
+        <div class="md:col-span-2">
+
+          <!-- Contact -->
+          <div class="section-card">
+            <h2 class="section-title">Contact Information</h2>
+            <div class="form-field">
+              <label class="form-label">Email address</label>
+              <input type="email" class="form-input" placeholder="you@example.com" value="alex@example.com" />
+            </div>
+            <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--color-text-sub);cursor:pointer;">
+              <input type="checkbox" checked style="accent-color:var(--color-accent);" />
+              Send me order updates and exclusive deals
+            </label>
+          </div>
+
+          <!-- Shipping Address -->
+          <div class="section-card">
+            <h2 class="section-title">Shipping Address</h2>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="form-field">
+                <label class="form-label">First name</label>
+                <input type="text" class="form-input" placeholder="Alex" />
+              </div>
+              <div class="form-field">
+                <label class="form-label">Last name</label>
+                <input type="text" class="form-input" placeholder="Mitchell" />
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Address</label>
+              <input type="text" class="form-input" placeholder="1234 Main Street" />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Apartment, suite, etc. (optional)</label>
+              <input type="text" class="form-input" placeholder="Apt 4B" />
+            </div>
+            <div class="grid grid-cols-3 gap-4">
+              <div class="form-field col-span-1">
+                <label class="form-label">City</label>
+                <input type="text" class="form-input" placeholder="San Francisco" />
+              </div>
+              <div class="form-field">
+                <label class="form-label">State</label>
+                <div style="position:relative;">
+                  <select class="form-select">
+                    <option>California</option>
+                    <option>New York</option>
+                    <option>Texas</option>
+                    <option>Florida</option>
+                  </select>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#71717A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);pointer-events:none;"><path d="m6 9 6 6 6-6"/></svg>
+                </div>
+              </div>
+              <div class="form-field">
+                <label class="form-label">ZIP Code</label>
+                <input type="text" class="form-input" placeholder="94105" />
+              </div>
+            </div>
+            <div class="form-field" style="margin-bottom:0;">
+              <label class="form-label">Phone (for delivery updates)</label>
+              <input type="tel" class="form-input" placeholder="+1 (555) 000-0000" />
+            </div>
+          </div>
+
+          <!-- Shipping Method -->
+          <div class="section-card">
+            <h2 class="section-title">Shipping Method</h2>
+            <label class="ship-option selected" onclick="selectShip(this)">
+              <input type="radio" name="ship" checked style="accent-color:var(--color-accent);" />
+              <div class="flex-1">
+                <div style="font-size:14px;font-weight:600;">Free 2-Day Shipping</div>
+                <div style="font-size:12px;color:var(--color-text-sub);">Arrives by Wednesday, Apr 18</div>
+              </div>
+              <span style="font-size:14px;font-weight:700;color:#15803D;">FREE</span>
+            </label>
+            <label class="ship-option" onclick="selectShip(this)">
+              <input type="radio" name="ship" style="accent-color:var(--color-accent);" />
+              <div class="flex-1">
+                <div style="font-size:14px;font-weight:600;">Overnight Shipping</div>
+                <div style="font-size:12px;color:var(--color-text-sub);">Arrives by Tuesday, Apr 17</div>
+              </div>
+              <span style="font-size:14px;font-weight:700;">$29.00</span>
+            </label>
+          </div>
+
+          <!-- Payment -->
+          <div class="section-card">
+            <h2 class="section-title">Payment</h2>
+
+            <label class="pay-option selected" onclick="selectPay(this)">
+              <input type="radio" name="pay" checked style="accent-color:var(--color-accent);" />
+              <svg width="32" height="20" viewBox="0 0 32 20" fill="none"><rect width="32" height="20" rx="3" fill="#1A1F71"/><text x="4" y="14" fill="white" font-size="9" font-family="Arial" font-weight="bold">VISA</text></svg>
+              <span style="font-size:14px;font-weight:500;">Credit / Debit Card</span>
+            </label>
+
+            <!-- Card fields (visible) -->
+            <div id="card-fields" style="margin-bottom:16px;">
+              <div class="form-field">
+                <label class="form-label">Card number</label>
+                <div style="position:relative;">
+                  <input type="text" class="form-input" placeholder="1234 5678 9012 3456" style="padding-right:80px;" />
+                  <div style="position:absolute;right:12px;top:50%;transform:translateY(-50%);display:flex;gap:4px;">
+                    <svg width="28" height="18" viewBox="0 0 32 20" fill="none"><rect width="32" height="20" rx="3" fill="#1A1F71"/><text x="4" y="14" fill="white" font-size="9" font-family="Arial" font-weight="bold">VISA</text></svg>
+                    <svg width="28" height="18" viewBox="0 0 32 20" fill="none"><rect width="32" height="20" rx="3" fill="#EB001B" x="0"/><rect width="32" height="20" rx="3" fill="#F79E1B" x="16" opacity="0.7"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="card-grid">
+                <div class="form-field">
+                  <label class="form-label">Expiry date</label>
+                  <input type="text" class="form-input" placeholder="MM / YY" />
+                </div>
+                <div class="form-field">
+                  <label class="form-label">Security code (CVV)</label>
+                  <input type="text" class="form-input" placeholder="123" />
+                </div>
+              </div>
+              <div class="form-field" style="margin-bottom:0;">
+                <label class="form-label">Name on card</label>
+                <input type="text" class="form-input" placeholder="Alex Mitchell" />
+              </div>
+            </div>
+
+            <label class="pay-option" onclick="selectPay(this)">
+              <input type="radio" name="pay" style="accent-color:var(--color-accent);" />
+              <svg width="80" height="20" viewBox="0 0 80 20" fill="none"><text x="0" y="15" fill="#003087" font-size="14" font-family="Arial" font-weight="bold">Pay</text><text x="26" y="15" fill="#009CDE" font-size="14" font-family="Arial" font-weight="bold">Pal</text></svg>
+              <span style="font-size:14px;font-weight:500;">PayPal</span>
+            </label>
+
+            <label class="pay-option" onclick="selectPay(this)">
+              <input type="radio" name="pay" style="accent-color:var(--color-accent);" />
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              <span style="font-size:14px;font-weight:500;">Apple Pay</span>
+            </label>
+          </div>
+
+          <!-- Billing address -->
+          <div class="section-card">
+            <h2 class="section-title">Billing Address</h2>
+            <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;margin-bottom:16px;">
+              <input type="checkbox" checked style="accent-color:var(--color-accent);" />
+              Same as shipping address
+            </label>
+          </div>
+
+          <!-- Place order -->
+          <button class="btn-primary" onclick="location.href='success.html'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Place Order — $1,870.36
+          </button>
+          <p style="font-size:12px;color:var(--color-text-sub);text-align:center;margin-top:12px;">By placing your order, you agree to VoltCore's <a href="#" style="color:var(--color-accent);">Terms of Service</a> and <a href="#" style="color:var(--color-accent);">Privacy Policy</a>.</p>
+        </div>
+
+        <!-- RIGHT: Order Summary -->
+        <div>
+          <div style="background:var(--color-surface);border:1px solid var(--color-border);border-radius:16px;padding:24px;position:sticky;top:80px;">
+            <div style="font-size:16px;font-weight:700;margin-bottom:16px;">Order Summary</div>
+
+            <!-- Items -->
+            <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--color-border);">
+              <div class="flex gap-3 items-center">
+                <div style="width:56px;height:44px;background:#F0F0F2;border-radius:8px;overflow:hidden;flex-shrink:0;position:relative;">
+                  <img src="https://picsum.photos/seed/gpu-5080-main/56/44" alt="" style="width:100%;height:100%;object-fit:cover;" />
+                  <span style="position:absolute;top:-6px;right:-6px;background:var(--color-accent);color:#fff;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;">1</span>
+                </div>
+                <div class="flex-1">
+                  <div style="font-size:13px;font-weight:600;">RTX 5080 FE</div>
+                  <div style="font-size:12px;color:var(--color-text-sub);">16GB GDDR7</div>
+                </div>
+                <div style="font-size:14px;font-weight:700;">$999</div>
+              </div>
+              <div class="flex gap-3 items-center">
+                <div style="width:56px;height:44px;background:#F0F0F2;border-radius:8px;overflow:hidden;flex-shrink:0;position:relative;">
+                  <img src="https://picsum.photos/seed/gpu-5070/56/44" alt="" style="width:100%;height:100%;object-fit:cover;" />
+                  <span style="position:absolute;top:-6px;right:-6px;background:var(--color-accent);color:#fff;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;">1</span>
+                </div>
+                <div class="flex-1">
+                  <div style="font-size:13px;font-weight:600;">RTX 5070</div>
+                  <div style="font-size:12px;color:var(--color-text-sub);">12GB GDDR7</div>
+                </div>
+                <div style="font-size:14px;font-weight:700;">$749</div>
+              </div>
+            </div>
+
+            <!-- Totals -->
+            <div class="summary-row"><span style="color:var(--color-text-sub);">Subtotal</span><span style="font-weight:600;">$1,748</span></div>
+            <div class="summary-row"><span style="color:var(--color-text-sub);">Shipping</span><span style="font-weight:600;color:#15803D;">Free</span></div>
+            <div class="summary-row"><span style="color:var(--color-text-sub);">Tax (7%)</span><span style="font-weight:600;">$122.36</span></div>
+            <div class="summary-total">
+              <span style="font-size:16px;font-weight:800;">Total</span>
+              <span style="font-size:20px;font-weight:800;">$1,870.36</span>
+            </div>
+
+            <!-- Delivery estimate -->
+            <div style="margin-top:20px;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:12px 14px;">
+              <div class="flex items-center gap-2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <div>
+                  <div style="font-size:13px;font-weight:600;color:#15803D;">Estimated Delivery</div>
+                  <div style="font-size:12px;color:#166534;">Wednesday, April 18, 2026</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer style="background:var(--color-surface);border-top:1px solid var(--color-border);padding:24px 0;">
+    <div class="max-w-screen-xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div style="font-size:13px;color:var(--color-text-sub);">© 2026 VoltCore. All rights reserved.</div>
+      <div class="flex items-center gap-4">
+        <a href="#" style="font-size:13px;color:var(--color-text-sub);text-decoration:none;">Privacy</a>
+        <a href="#" style="font-size:13px;color:var(--color-text-sub);text-decoration:none;">Terms</a>
+        <a href="#" style="font-size:13px;color:var(--color-text-sub);text-decoration:none;">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function selectPay(el) {
+      document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+    function selectShip(el) {
+      document.querySelectorAll('.ship-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+  </script>
+</body>
+</html>

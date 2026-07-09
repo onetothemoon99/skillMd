@@ -1,0 +1,689 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VoltCore — Graphics Cards</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-bg: #FAFAFA;
+      --color-surface: #FFFFFF;
+      --color-surface-2: #F4F4F5;
+      --color-accent: #3B7FF0;
+      --color-accent-dark: #2563EB;
+      --color-text: #18181B;
+      --color-text-sub: #71717A;
+      --color-border: #E4E4E7;
+      --font: 'Inter', sans-serif;
+      --space-unit: 8px;
+      --container: 1200px;
+      --section-py: 80px;
+    }
+    * { font-family: var(--font); box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--color-bg); color: var(--color-text); margin: 0; }
+
+    /* Navbar */
+    .nav-blur {
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    /* Hero */
+    .hero-bg {
+      background: linear-gradient(135deg, #0f0f1a 0%, #1a1a3e 50%, #0d1b4b 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 50% at 60% 50%, rgba(59,127,240,0.25) 0%, transparent 70%);
+    }
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(59,127,240,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,127,240,0.06) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    /* Cards */
+    .product-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .product-card:hover {
+      border-color: #3B7FF0;
+      box-shadow: 0 8px 32px rgba(59,127,240,0.12);
+      transform: translateY(-2px);
+    }
+    .product-img-wrap {
+      background: #F0F0F2;
+      border-radius: 12px 12px 0 0;
+      overflow: hidden;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .product-card:hover .product-img-wrap img {
+      transform: scale(1.04);
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .badge-blue { background: #EFF6FF; color: #1D4ED8; }
+    .badge-green { background: #F0FDF4; color: #15803D; }
+    .badge-red { background: #FEF2F2; color: #DC2626; }
+    .badge-gray { background: #F4F4F5; color: #52525B; }
+
+    /* Buttons */
+    .btn-primary {
+      background: var(--color-accent);
+      color: #fff;
+      font-weight: 600;
+      border-radius: 10px;
+      padding: 12px 24px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+    .btn-primary:hover {
+      background: var(--color-accent-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(59,127,240,0.3);
+    }
+    .btn-primary:active { transform: translateY(0); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--color-text);
+      font-weight: 500;
+      border-radius: 10px;
+      padding: 12px 24px;
+      border: 1px solid var(--color-border);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+    .btn-ghost:hover {
+      background: var(--color-surface-2);
+      border-color: #a1a1aa;
+    }
+
+    /* Category cards */
+    .category-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      text-align: center;
+    }
+    .category-card:hover {
+      border-color: var(--color-accent);
+      box-shadow: 0 4px 20px rgba(59,127,240,0.1);
+    }
+
+    /* Trust bar */
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 24px;
+    }
+
+    /* Feature list */
+    .feature-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .feature-row:last-child { border-bottom: none; }
+
+    /* Nav link */
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: #52525B;
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 8px;
+      transition: all 0.15s ease;
+    }
+    .nav-link:hover { color: var(--color-text); background: var(--color-surface-2); }
+    .nav-link.active { color: var(--color-accent); }
+
+    /* Cart badge */
+    .cart-badge {
+      position: absolute;
+      top: -6px; right: -6px;
+      background: var(--color-accent);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #fff;
+    }
+
+    /* Newsletter */
+    .newsletter-input {
+      flex: 1;
+      border: 1px solid var(--color-border);
+      border-radius: 10px 0 0 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      outline: none;
+      background: var(--color-surface);
+      color: var(--color-text);
+      transition: border-color 0.15s;
+    }
+    .newsletter-input:focus { border-color: var(--color-accent); }
+
+    /* Price */
+    .price-main { font-size: 20px; font-weight: 700; color: var(--color-text); }
+    .price-old { font-size: 13px; color: var(--color-text-sub); text-decoration: line-through; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="nav-blur fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-screen-xl mx-auto px-6 h-16 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2.5 text-[var(--color-text)] no-underline">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:var(--color-accent)">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M9 1L2 9h6l-1 6 7-8H8l1-6z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span style="font-size:16px;font-weight:700;letter-spacing:-0.02em;">VoltCore</span>
+      </a>
+
+      <!-- Nav Links -->
+      <div class="hidden md:flex items-center gap-1">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="products.html" class="nav-link">Products</a>
+        <a href="products.html" class="nav-link">Deals</a>
+        <a href="#" class="nav-link">About</a>
+      </div>
+
+      <!-- Right Actions -->
+      <div class="flex items-center gap-2">
+        <button class="w-9 h-9 rounded-lg flex items-center justify-center hover:bg-[#F4F4F5] transition-colors">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#52525B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+        </button>
+        <a href="cart.html" class="relative w-9 h-9 rounded-lg flex items-center justify-center hover:bg-[#F4F4F5] transition-colors">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#52525B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <span class="cart-badge">2</span>
+        </a>
+        <a href="#" class="hidden md:flex btn-ghost" style="padding:8px 16px;font-size:13px;">Sign in</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero-bg pt-16" style="min-height:92vh;display:flex;align-items:center;">
+    <div class="hero-grid"></div>
+    <div class="max-w-screen-xl mx-auto px-6 py-24 relative z-10 w-full">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <!-- Text -->
+        <div>
+          <div class="badge badge-blue mb-6" style="background:rgba(59,127,240,0.15);color:#93c5fd;">
+            <svg width="10" height="10" fill="currentColor" class="mr-1.5" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8"/></svg>
+            New arrivals — RTX 5000 Series
+          </div>
+          <h1 style="font-size:clamp(2.5rem,5vw,3.75rem);font-weight:800;line-height:1.1;letter-spacing:-0.03em;color:#fff;margin:0 0 24px 0;">
+            Power Your<br/>
+            <span style="color:#93c5fd;">World</span>
+          </h1>
+          <p style="font-size:18px;color:#a1a1aa;line-height:1.7;margin:0 0 36px 0;max-width:480px;">
+            The fastest graphics cards ever made. Designed for gamers, creators, and engineers who refuse to compromise.
+          </p>
+          <div class="flex items-center gap-3 flex-wrap">
+            <a href="products.html" class="btn-primary" style="padding:14px 28px;font-size:15px;">
+              Shop Now
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
+            </a>
+            <a href="products.html" class="btn-ghost" style="padding:14px 28px;font-size:15px;border-color:rgba(255,255,255,0.12);color:#a1a1aa;background:rgba(255,255,255,0.05);">
+              View Deals
+            </a>
+          </div>
+          <!-- Stats -->
+          <div class="flex gap-8 mt-12">
+            <div>
+              <div style="font-size:28px;font-weight:800;color:#fff;letter-spacing:-0.03em;">3,400+</div>
+              <div style="font-size:13px;color:#71717a;">Products</div>
+            </div>
+            <div style="width:1px;background:rgba(255,255,255,0.1);"></div>
+            <div>
+              <div style="font-size:28px;font-weight:800;color:#fff;letter-spacing:-0.03em;">98%</div>
+              <div style="font-size:13px;color:#71717a;">Satisfaction</div>
+            </div>
+            <div style="width:1px;background:rgba(255,255,255,0.1);"></div>
+            <div>
+              <div style="font-size:28px;font-weight:800;color:#fff;letter-spacing:-0.03em;">2-Day</div>
+              <div style="font-size:13px;color:#71717a;">Shipping</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Image -->
+        <div class="hidden md:block relative">
+          <div style="width:100%;height:480px;border-radius:24px;overflow:hidden;position:relative;">
+            <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 70%,rgba(59,127,240,0.4) 0%,transparent 60%);z-index:1;"></div>
+            <img src="https://picsum.photos/seed/gpu-hero/600/480" alt="GPU" style="width:100%;height:100%;object-fit:cover;opacity:0.75;" />
+            <!-- Floating card -->
+            <div style="position:absolute;bottom:24px;left:24px;right:24px;z-index:2;background:rgba(255,255,255,0.08);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:16px 20px;">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div style="font-size:13px;color:#fff;margin-bottom:4px;">Best Seller</div>
+                  <div style="font-size:16px;font-weight:700;color:#fff;">NVIDIA RTX 5090</div>
+                  <div style="font-size:13px;color:#fff;">32GB GDDR7 · 575W TDP</div>
+                </div>
+                <div style="text-align:right;">
+                  <div style="font-size:22px;font-weight:800;color:#fff;">$1,599</div>
+                  <a href="cart.html" class="btn-primary" style="padding:8px 16px;font-size:12px;margin-top:8px;">Add to Cart</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <section style="background:var(--color-surface);border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);">
+    <div class="max-w-screen-xl mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-[var(--color-border)]">
+        <div class="trust-item">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#EFF6FF;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3B7FF0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--color-text);">Free 2-Day Shipping</div>
+            <div style="font-size:12px;color:var(--color-text-sub);">On orders over $99</div>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#F0FDF4;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--color-text);">2-Year Warranty</div>
+            <div style="font-size:12px;color:var(--color-text-sub);">All products covered</div>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#FFF7ED;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C2410C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--color-text);">30-Day Returns</div>
+            <div style="font-size:12px;color:var(--color-text-sub);">Hassle-free refunds</div>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#FDF4FF;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9333EA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--color-text);">24/7 Expert Support</div>
+            <div style="font-size:12px;color:var(--color-text-sub);">Real humans, fast replies</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PRODUCTS -->
+  <section style="padding:var(--section-py) 0;">
+    <div class="max-w-screen-xl mx-auto px-6">
+      <!-- Header -->
+      <div class="flex items-end justify-between mb-10">
+        <div>
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.08em;color:var(--color-accent);text-transform:uppercase;margin-bottom:8px;">Featured</div>
+          <h2 style="font-size:2rem;font-weight:800;letter-spacing:-0.03em;margin:0;color:var(--color-text);">Top Performers</h2>
+          <p style="font-size:15px;color:var(--color-text-sub);margin:8px 0 0 0;">Hand-picked for raw performance and value</p>
+        </div>
+        <a href="products.html" class="btn-ghost hidden md:flex">View all products</a>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- Card 1 -->
+        <a href="product-detail.html" class="product-card block no-underline" style="color:inherit;">
+          <div class="product-img-wrap">
+            <img src="https://picsum.photos/seed/gpu-rtx5090/480/300" alt="RTX 5090" />
+          </div>
+          <div style="padding:20px;">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="badge badge-blue">NVIDIA</span>
+              <span class="badge badge-green">In Stock</span>
+            </div>
+            <div style="font-size:16px;font-weight:700;margin-bottom:6px;color:var(--color-text);">GeForce RTX 5090</div>
+            <div style="font-size:13px;color:var(--color-text-sub);margin-bottom:12px;">32GB GDDR7 · 512-bit · 21 Gbps</div>
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="price-main">$1,599</span>
+                <span class="price-old ml-2">$1,799</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <svg width="12" height="12" fill="#FBBF24" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <span style="font-size:13px;font-weight:600;">4.9</span>
+                <span style="font-size:12px;color:var(--color-text-sub);">(348)</span>
+              </div>
+            </div>
+            <button class="btn-primary w-full mt-4" style="justify-content:center;" onclick="event.preventDefault()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+              Add to Cart
+            </button>
+          </div>
+        </a>
+
+        <!-- Card 2 -->
+        <a href="product-detail.html" class="product-card block no-underline" style="color:inherit;position:relative;">
+          <div style="position:absolute;top:12px;right:12px;z-index:2;" class="badge badge-red">Hot Deal</div>
+          <div class="product-img-wrap">
+            <img src="https://picsum.photos/seed/gpu-rtx5080/480/300" alt="RTX 5080" />
+          </div>
+          <div style="padding:20px;">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="badge badge-blue">NVIDIA</span>
+              <span class="badge badge-green">In Stock</span>
+            </div>
+            <div style="font-size:16px;font-weight:700;margin-bottom:6px;color:var(--color-text);">GeForce RTX 5080</div>
+            <div style="font-size:13px;color:var(--color-text-sub);margin-bottom:12px;">16GB GDDR7 · 256-bit · 30 Gbps</div>
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="price-main">$999</span>
+                <span class="price-old ml-2">$1,099</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <svg width="12" height="12" fill="#FBBF24" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <span style="font-size:13px;font-weight:600;">4.8</span>
+                <span style="font-size:12px;color:var(--color-text-sub);">(512)</span>
+              </div>
+            </div>
+            <button class="btn-primary w-full mt-4" style="justify-content:center;" onclick="event.preventDefault()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+              Add to Cart
+            </button>
+          </div>
+        </a>
+
+        <!-- Card 3 -->
+        <a href="product-detail.html" class="product-card block no-underline" style="color:inherit;">
+          <div class="product-img-wrap">
+            <img src="https://picsum.photos/seed/gpu-rx9900/480/300" alt="RX 9900 XTX" />
+          </div>
+          <div style="padding:20px;">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="badge" style="background:#FFF4E5;color:#C2410C;">AMD</span>
+              <span class="badge badge-green">In Stock</span>
+            </div>
+            <div style="font-size:16px;font-weight:700;margin-bottom:6px;color:var(--color-text);">Radeon RX 9900 XTX</div>
+            <div style="font-size:13px;color:var(--color-text-sub);margin-bottom:12px;">24GB GDDR6 · 384-bit · 20 Gbps</div>
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="price-main">$699</span>
+                <span class="price-old ml-2">$799</span>
+              </div>
+              <div class="flex items-center gap-1">
+                <svg width="12" height="12" fill="#FBBF24" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                <span style="font-size:13px;font-weight:600;">4.7</span>
+                <span style="font-size:12px;color:var(--color-text-sub);">(289)</span>
+              </div>
+            </div>
+            <button class="btn-primary w-full mt-4" style="justify-content:center;" onclick="event.preventDefault()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+              Add to Cart
+            </button>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOP BY CATEGORY -->
+  <section style="padding:0 0 var(--section-py) 0;">
+    <div class="max-w-screen-xl mx-auto px-6">
+      <div class="mb-10">
+        <div style="font-size:12px;font-weight:600;letter-spacing:0.08em;color:var(--color-accent);text-transform:uppercase;margin-bottom:8px;">Browse</div>
+        <h2 style="font-size:2rem;font-weight:800;letter-spacing:-0.03em;margin:0;color:var(--color-text);">Shop by Category</h2>
+        <p style="font-size:15px;color:var(--color-text-sub);margin:8px 0 0 0;">Find the right GPU for your needs</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a href="products.html" class="category-card no-underline">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4" style="background:linear-gradient(135deg,#EFF6FF,#DBEAFE);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3B7FF0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
+            </svg>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:var(--color-text);margin-bottom:4px;">Gaming</div>
+          <div style="font-size:12px;color:var(--color-text-sub);">High FPS, low latency</div>
+          <div style="font-size:12px;font-weight:600;color:var(--color-accent);margin-top:8px;">142 products</div>
+        </a>
+        <a href="products.html" class="category-card no-underline">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4" style="background:linear-gradient(135deg,#FFF7ED,#FED7AA);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:var(--color-text);margin-bottom:4px;">Workstation</div>
+          <div style="font-size:12px;color:var(--color-text-sub);">3D, AI, simulation</div>
+          <div style="font-size:12px;font-weight:600;color:#EA580C;margin-top:8px;">86 products</div>
+        </a>
+        <a href="products.html" class="category-card no-underline">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4" style="background:linear-gradient(135deg,#F0FDF4,#BBF7D0);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#15803D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:var(--color-text);margin-bottom:4px;">Budget</div>
+          <div style="font-size:12px;color:var(--color-text-sub);">Best price per frame</div>
+          <div style="font-size:12px;font-weight:600;color:#15803D;margin-top:8px;">234 products</div>
+        </a>
+        <a href="products.html" class="category-card no-underline">
+          <div class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4" style="background:linear-gradient(135deg,#FDF4FF,#E9D5FF);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9333EA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <div style="font-size:15px;font-weight:700;color:var(--color-text);margin-bottom:4px;">AI / Compute</div>
+          <div style="font-size:12px;color:var(--color-text-sub);">ML, inference, training</div>
+          <div style="font-size:12px;font-weight:600;color:#9333EA;margin-top:8px;">47 products</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY VOLTCORE SECTION -->
+  <section style="background:var(--color-surface);border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);padding:var(--section-py) 0;">
+    <div class="max-w-screen-xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div>
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.08em;color:var(--color-accent);text-transform:uppercase;margin-bottom:8px;">Why VoltCore</div>
+          <h2 style="font-size:2rem;font-weight:800;letter-spacing:-0.03em;margin:0 0 16px 0;color:var(--color-text);">The Expert's<br/>Choice</h2>
+          <p style="font-size:15px;color:var(--color-text-sub);line-height:1.7;margin:0 0 32px 0;">We've been selling graphics cards since 2009. Our team of engineers tests every card before it ships. No middlemen. No markups. Just pure performance.</p>
+          <div>
+            <div class="feature-row">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#EFF6FF;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B7FF0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              </div>
+              <div>
+                <div style="font-size:14px;font-weight:600;color:var(--color-text);margin-bottom:2px;">QA Tested Before Shipping</div>
+                <div style="font-size:13px;color:var(--color-text-sub);line-height:1.6;">Every GPU runs a 48-hour stress test in our lab before leaving our warehouse.</div>
+              </div>
+            </div>
+            <div class="feature-row">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#EFF6FF;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B7FF0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div>
+                <div style="font-size:14px;font-weight:600;color:var(--color-text);margin-bottom:2px;">Manufacturer Warranty +1 Year</div>
+                <div style="font-size:13px;color:var(--color-text-sub);line-height:1.6;">We extend every card's warranty by 12 months at no extra cost.</div>
+              </div>
+            </div>
+            <div class="feature-row">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#EFF6FF;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B7FF0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              </div>
+              <div>
+                <div style="font-size:14px;font-weight:600;color:var(--color-text);margin-bottom:2px;">Expert Advice Anytime</div>
+                <div style="font-size:13px;color:var(--color-text-sub);line-height:1.6;">Chat with a GPU specialist who understands your workload and budget.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="border-radius:20px;overflow:hidden;height:440px;">
+            <img src="https://picsum.photos/seed/voltcore-lab/560/440" alt="Lab" style="width:100%;height:100%;object-fit:cover;" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section style="padding:var(--section-py) 0;">
+    <div class="max-w-screen-xl mx-auto px-6">
+      <div style="background:linear-gradient(135deg,#0f0f1a,#1a1a3e);border-radius:24px;padding:60px;text-align:center;position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(59,127,240,0.2) 0%,transparent 60%);"></div>
+        <div style="position:relative;z-index:1;">
+          <div style="font-size:12px;font-weight:600;letter-spacing:0.08em;color:#93c5fd;text-transform:uppercase;margin-bottom:12px;">Stay Updated</div>
+          <h2 style="font-size:2rem;font-weight:800;letter-spacing:-0.03em;margin:0 0 12px 0;color:#fff;">Get GPU alerts &amp; exclusive deals</h2>
+          <p style="font-size:15px;color:#71717a;margin:0 0 32px 0;">Be first to know when new cards drop or prices fall.</p>
+          <div class="flex max-w-md mx-auto">
+            <input type="email" placeholder="your@email.com" class="newsletter-input" style="border-radius:10px 0 0 10px;" />
+            <button class="btn-primary" style="border-radius:0 10px 10px 0;padding:12px 20px;">Subscribe</button>
+          </div>
+          <div style="font-size:12px;color:#52525b;margin-top:12px;">No spam. Unsubscribe anytime.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:var(--color-surface);border-top:1px solid var(--color-border);padding:60px 0 32px 0;">
+    <div class="max-w-screen-xl mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+        <div class="col-span-2">
+          <a href="index.html" class="flex items-center gap-2.5 no-underline mb-4">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:var(--color-accent)">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M9 1L2 9h6l-1 6 7-8H8l1-6z" fill="white" stroke="white" stroke-width="0.5" stroke-linejoin="round"/></svg>
+            </div>
+            <span style="font-size:16px;font-weight:700;color:var(--color-text);">VoltCore</span>
+          </a>
+          <p style="font-size:14px;color:var(--color-text-sub);line-height:1.7;max-width:260px;">The most trusted destination for graphics cards. Expert-curated. Fully tested. Guaranteed.</p>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-sub);margin-bottom:16px;">Shop</div>
+          <div class="flex flex-col gap-3">
+            <a href="products.html" style="font-size:14px;color:var(--color-text-sub);text-decoration:none;" class="hover:text-[var(--color-text)]">Gaming GPUs</a>
+            <a href="products.html" style="font-size:14px;color:var(--color-text-sub);text-decoration:none;" class="hover:text-[var(--color-text)]">Workstation</a>
+            <a href="products.html" style="font-size:14px;color:var(--color-text-sub);text-decoration:none;" class="hover:text-[var(--color-text)]">Budget Picks</a>
+            <a href="products.html" style="font-size:14px;color:var(--color-text-sub);text-decoration:none;" class="hover:text-[var(--color-text)]">AI / Compute</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-sub);margin-bottom:16px;">Support</div>
+          <div class="flex flex-col gap-3">
+            <a href="#" style="font-size:14px;color:var(--color-text-sub);text-decoration:none;" class="hover:text-[var(--color-text)]">Help Center</a>
+            <a href="#" style="font-size:14px;color:var(--color-text-sub);text-decoration:none;" class="hover:text-[var(--color-text)]">Returns</a>
+            <a href="#" style="font-size:14px;color:var(--color-text-sub);text-decoration:none;" class="hover:text-[var(--color-text)]">Warranty</a>
+            <a href="#" style="font-size:14px;color:var(--color-text-sub);text-decoration:none;" class="hover:text-[var(--color-text)]">Contact Us</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-text-sub);margin-bottom:16px;">Company</div>
+          <div class="flex flex-col gap-3">
+            <a href="#" style="font-size:14px;color:var(--color-text-sub);text-decoration:none;" class="hover:text-[var(--color-text)]">About</a>
+            <a href="#" style="font-size:14px;color:var(--color-text-sub);text-decoration:none;" class="hover:text-[var(--color-text)]">Blog</a>
+            <a href="#" style="font-size:14px;color:var(--color-text-sub);text-decoration:none;" class="hover:text-[var(--color-text)]">Privacy</a>
+            <a href="#" style="font-size:14px;color:var(--color-text-sub);text-decoration:none;" class="hover:text-[var(--color-text)]">Terms</a>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-6" style="border-top:1px solid var(--color-border);">
+        <div style="font-size:13px;color:var(--color-text-sub);">© 2026 VoltCore. All rights reserved.</div>
+        <div class="flex items-center gap-3">
+          <img src="https://picsum.photos/seed/visa/48/28" alt="Visa" style="height:22px;border-radius:3px;opacity:0.7;" />
+          <img src="https://picsum.photos/seed/mastercard/48/28" alt="MC" style="height:22px;border-radius:3px;opacity:0.7;" />
+          <img src="https://picsum.photos/seed/amex/48/28" alt="Amex" style="height:22px;border-radius:3px;opacity:0.7;" />
+          <img src="https://picsum.photos/seed/paypal/48/28" alt="PayPal" style="height:22px;border-radius:3px;opacity:0.7;" />
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
