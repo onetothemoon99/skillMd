@@ -1,0 +1,290 @@
+<!-- about.html -->
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>เกี่ยวกับเรา — ALUXE Aluminium</title>
+<meta name="description" content="รู้จัก ALUXE Aluminium ผู้เชี่ยวชาญด้านงานอลูมิเนียมพรีเมียมมากว่า 15 ปี" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/style.css" />
+<style>
+  .timeline-item { display: flex; gap: 28px; padding-bottom: 48px; position: relative; }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-line { position: absolute; left: 27px; top: 44px; bottom: 0; width: 1px; background: var(--color-line); }
+  .timeline-item:last-child .timeline-line { display: none; }
+  .timeline-dot { width: 56px; height: 56px; border-radius: 50%; background: var(--color-ink); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; z-index: 1; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="nav-shell">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="flex items-center gap-3 no-underline">
+      <div class="logo-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+      </div>
+      <span class="logo-word">ALU<span>XE</span></span>
+    </a>
+    <div class="hidden md:flex items-center gap-1">
+      <a href="index.html" class="nav-link">หน้าแรก</a>
+      <a href="products.html" class="nav-link">สินค้า</a>
+      <a href="gallery.html" class="nav-link">ผลงานของเรา</a>
+      <a href="about.html" class="nav-link active">เกี่ยวกับเรา</a>
+      <a href="contact.html" class="nav-link">ติดต่อเรา</a>
+    </div>
+    <div class="hidden md:flex items-center gap-4">
+      <a href="tel:021234567" class="flex items-center gap-2 no-underline" style="font-size:14px;font-weight:500;color:var(--color-ink);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        02-123-4567
+      </a>
+      <a href="contact.html#quote" class="btn btn-dark btn-sm">ขอใบเสนอราคา</a>
+    </div>
+    <button data-menu-toggle class="md:hidden btn-icon" aria-label="เมนู">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="index.html">หน้าแรก</a>
+  <a href="products.html">สินค้า</a>
+  <a href="gallery.html">ผลงานของเรา</a>
+  <a href="about.html">เกี่ยวกับเรา</a>
+  <a href="contact.html">ติดต่อเรา</a>
+  <div class="mt-8"><a href="contact.html#quote" class="btn btn-dark" style="width:100%;">ขอใบเสนอราคา</a></div>
+</div>
+
+<!-- HERO / STORY -->
+<section style="padding-top:150px;padding-bottom:var(--section-py);">
+  <div class="wrap">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+      <div class="reveal">
+        <div class="eyebrow mb-6">เกี่ยวกับ ALUXE</div>
+        <h1 class="h-display mb-6" style="font-size:clamp(2.4rem,4.2vw,3.4rem);">15 ปี ของความเชี่ยวชาญ<br/>ในงานอลูมิเนียม</h1>
+        <p class="text-sub mb-6" style="font-size:16px;">ALUXE Aluminium ก่อตั้งขึ้นในปี 2011 ด้วยความตั้งใจที่จะยกระดับมาตรฐานงานประตูและหน้าต่างอลูมิเนียมในประเทศไทย ให้มีทั้งความสวยงามระดับพรีเมียมและความแข็งแรงทนทานที่วางใจได้ในระยะยาว</p>
+        <p class="text-sub" style="font-size:16px;">จากทีมช่างเล็ก ๆ วันนี้เราเติบโตเป็นผู้ผลิตและติดตั้งอลูมิเนียมที่ลูกค้าไว้วางใจกว่า 3,200 โปรเจกต์ ครอบคลุมบ้านเดี่ยว ทาวน์โฮม คอนโดมิเนียม และอาคารพาณิชย์ทั่วประเทศ</p>
+      </div>
+      <div class="reveal reveal-delay-1" style="border-radius:20px;overflow:hidden;height:460px;">
+        <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?w=620&h=460&fit=crop&q=80&auto=format" alt="ทีมงาน ALUXE" style="width:100%;height:100%;object-fit:cover;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="background:var(--color-surface);border-top:1px solid var(--color-line);border-bottom:1px solid var(--color-line);padding:56px 0;">
+  <div class="wrap">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div class="reveal">
+        <div class="stat-num" data-count-to="15" data-suffix="+">0</div>
+        <div style="font-size:13px;color:var(--color-ink-sub);margin-top:6px;">ปีที่เชี่ยวชาญ</div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="stat-num" data-count-to="3200" data-suffix="+">0</div>
+        <div style="font-size:13px;color:var(--color-ink-sub);margin-top:6px;">โปรเจกต์ที่ส่งมอบ</div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="stat-num" data-count-to="42" data-suffix="">0</div>
+        <div style="font-size:13px;color:var(--color-ink-sub);margin-top:6px;">ทีมช่างมืออาชีพ</div>
+      </div>
+      <div class="reveal reveal-delay-3">
+        <div class="stat-num" data-count-to="98" data-suffix="%">0</div>
+        <div style="font-size:13px;color:var(--color-ink-sub);margin-top:6px;">ความพึงพอใจลูกค้า</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section style="padding:var(--section-py) 0;">
+  <div class="wrap" style="max-width:760px;">
+    <div class="mb-14 reveal">
+      <div class="eyebrow mb-4">เส้นทางของเรา</div>
+      <h2 class="h-section">ก้าวสำคัญของ ALUXE</h2>
+    </div>
+
+    <div>
+      <div class="timeline-item reveal">
+        <div class="timeline-line"></div>
+        <div class="timeline-dot">2011</div>
+        <div style="padding-top:8px;">
+          <div style="font-weight:600;font-size:16px;margin-bottom:6px;">ก่อตั้งบริษัท</div>
+          <div class="text-sub" style="font-size:14px;">เริ่มต้นจากทีมช่างขนาดเล็กที่มุ่งเน้นงานอลูมิเนียมคุณภาพสูงสำหรับบ้านพักอาศัย</div>
+        </div>
+      </div>
+      <div class="timeline-item reveal reveal-delay-1">
+        <div class="timeline-line"></div>
+        <div class="timeline-dot">2015</div>
+        <div style="padding-top:8px;">
+          <div style="font-weight:600;font-size:16px;margin-bottom:6px;">ขยายโรงงานผลิต</div>
+          <div class="text-sub" style="font-size:14px;">ลงทุนเครื่องจักรพ่นสี Powder Coating มาตรฐานสากล เพิ่มกำลังการผลิตรองรับโครงการขนาดใหญ่</div>
+        </div>
+      </div>
+      <div class="timeline-item reveal reveal-delay-2">
+        <div class="timeline-line"></div>
+        <div class="timeline-dot">2019</div>
+        <div style="padding-top:8px;">
+          <div style="font-weight:600;font-size:16px;margin-bottom:6px;">รับรองมาตรฐานคุณภาพ</div>
+          <div class="text-sub" style="font-size:14px;">ได้รับการรับรองมาตรฐานการผลิตและควบคุมคุณภาพระดับสากลสำหรับงานอลูมิเนียม</div>
+        </div>
+      </div>
+      <div class="timeline-item reveal reveal-delay-3">
+        <div class="timeline-line"></div>
+        <div class="timeline-dot">2023</div>
+        <div style="padding-top:8px;">
+          <div style="font-weight:600;font-size:16px;margin-bottom:6px;">ส่งมอบโปรเจกต์ครบ 3,000</div>
+          <div class="text-sub" style="font-size:14px;">ขยายทีมช่างติดตั้งครอบคลุมพื้นที่กรุงเทพฯ และปริมณฑล พร้อมทีมบริการหลังการขาย</div>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot" style="background:var(--color-accent);">วันนี้</div>
+        <div style="padding-top:8px;">
+          <div style="font-weight:600;font-size:16px;margin-bottom:6px;">ผู้นำงานอลูมิเนียมพรีเมียม</div>
+          <div class="text-sub" style="font-size:14px;">ยังคงมุ่งมั่นพัฒนาคุณภาพวัสดุและบริการ เพื่อเป็นตัวเลือกอันดับหนึ่งของงานอลูมิเนียมพรีเมียม</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="section-alt" style="padding:var(--section-py) 0;">
+  <div class="wrap">
+    <div class="mb-12 reveal">
+      <div class="eyebrow mb-4">ทำไมต้องอลูมิเนียม</div>
+      <h2 class="h-section">วัสดุที่ตอบโจทย์บ้านยุคใหม่</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div class="step-card reveal">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:20px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div style="font-weight:600;font-size:16px;margin-bottom:8px;">ทนทาน ไม่เป็นสนิม</div>
+        <div class="text-sub" style="font-size:14px;">อลูมิเนียมทนต่อความชื้นและสภาพอากาศร้อนชื้นแบบไทยได้ดีกว่าวัสดุเหล็กทั่วไป</div>
+      </div>
+      <div class="step-card reveal reveal-delay-1">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:20px;"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        <div style="font-weight:600;font-size:16px;margin-bottom:8px;">น้ำหนักเบา แข็งแรง</div>
+        <div class="text-sub" style="font-size:14px;">โครงสร้างบางเฉียบแต่แข็งแรง ทำให้เปิด-ปิดได้คล่องตัวและลดภาระโครงสร้างอาคาร</div>
+      </div>
+      <div class="step-card reveal reveal-delay-2">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:20px;"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
+        <div style="font-weight:600;font-size:16px;margin-bottom:8px;">ดีไซน์ได้หลากหลาย</div>
+        <div class="text-sub" style="font-size:14px;">ปรับสีและสไตล์ให้เข้ากับงานสถาปัตยกรรมได้ทุกรูปแบบ ตั้งแต่มินิมอลถึงคลาสสิก</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section style="padding:var(--section-py) 0;">
+  <div class="wrap">
+    <div class="mb-12 reveal">
+      <div class="eyebrow mb-4">ทีมงานของเรา</div>
+      <h2 class="h-section">ผู้เชี่ยวชาญที่ดูแลทุกโปรเจกต์</h2>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+      <div class="reveal text-center">
+        <div style="border-radius:16px;overflow:hidden;height:220px;margin-bottom:14px;">
+          <img src="https://i.pravatar.cc/300?img=33" alt="ผู้จัดการฝ่ายผลิต" style="width:100%;height:100%;object-fit:cover;" />
+        </div>
+        <div style="font-weight:600;font-size:14px;">คุณอนุชา ศรีสมบัติ</div>
+        <div style="font-size:12px;color:var(--color-ink-sub);">ผู้จัดการฝ่ายผลิต</div>
+      </div>
+      <div class="reveal reveal-delay-1 text-center">
+        <div style="border-radius:16px;overflow:hidden;height:220px;margin-bottom:14px;">
+          <img src="https://i.pravatar.cc/300?img=52" alt="หัวหน้าทีมติดตั้ง" style="width:100%;height:100%;object-fit:cover;" />
+        </div>
+        <div style="font-weight:600;font-size:14px;">คุณวรพล เจริญสุข</div>
+        <div style="font-size:12px;color:var(--color-ink-sub);">หัวหน้าทีมติดตั้ง</div>
+      </div>
+      <div class="reveal reveal-delay-2 text-center">
+        <div style="border-radius:16px;overflow:hidden;height:220px;margin-bottom:14px;">
+          <img src="https://i.pravatar.cc/300?img=47" alt="ฝ่ายออกแบบ" style="width:100%;height:100%;object-fit:cover;" />
+        </div>
+        <div style="font-weight:600;font-size:14px;">คุณปิยะดา รุ่งเรือง</div>
+        <div style="font-size:12px;color:var(--color-ink-sub);">ฝ่ายออกแบบและที่ปรึกษาลูกค้า</div>
+      </div>
+      <div class="reveal reveal-delay-3 text-center">
+        <div style="border-radius:16px;overflow:hidden;height:220px;margin-bottom:14px;">
+          <img src="https://i.pravatar.cc/300?img=14" alt="ฝ่ายควบคุมคุณภาพ" style="width:100%;height:100%;object-fit:cover;" />
+        </div>
+        <div style="font-weight:600;font-size:14px;">คุณกิตติ วงศ์ไพศาล</div>
+        <div style="font-size:12px;color:var(--color-ink-sub);">ฝ่ายควบคุมคุณภาพ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding-bottom:var(--section-py);">
+  <div class="wrap">
+    <div class="section-dark reveal" style="border-radius:24px;padding:72px 48px;text-align:center;position:relative;overflow:hidden;">
+      <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(154,123,63,0.18) 0%,transparent 60%);"></div>
+      <div style="position:relative;z-index:1;">
+        <h2 class="h-section mb-4" style="color:#fff;">ให้เราช่วยดูแลบ้านของคุณ</h2>
+        <p style="color:#a3a6ac;font-size:16px;max-width:480px;margin:0 auto 32px;">ทีมงาน ALUXE พร้อมให้คำปรึกษาและสำรวจหน้างานฟรี ไม่มีค่าใช้จ่าย</p>
+        <a href="contact.html#quote" class="btn btn-light">นัดสำรวจหน้างานฟรี</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="section-dark" style="padding:80px 0 32px;">
+  <div class="wrap">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-10 mb-14">
+      <div class="col-span-2">
+        <a href="index.html" class="flex items-center gap-3 no-underline mb-5">
+          <div class="logo-mark" style="background:#fff;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+          </div>
+          <span class="logo-word" style="color:#fff;">ALU<span style="color:var(--color-accent);">XE</span></span>
+        </a>
+        <p style="font-size:14px;color:#a3a6ac;line-height:1.8;max-width:280px;">ผู้ผลิตและติดตั้งประตู-หน้าต่างอลูมิเนียมพรีเมียม ดีไซน์เรียบหรู แข็งแรงทนทาน โดยทีมช่างมืออาชีพ ตั้งแต่ปี 2011</p>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6b6f76;margin-bottom:18px;">สินค้า</div>
+        <div class="flex flex-col gap-3">
+          <a href="products.html#sliding-door" class="footer-link">ประตูบานเลื่อน</a>
+          <a href="products.html#swing-door" class="footer-link">ประตูบานสวิง</a>
+          <a href="products.html#sliding-window" class="footer-link">หน้าต่างบานเลื่อน</a>
+          <a href="products.html#insect-screen" class="footer-link">มุ้งลวด</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6b6f76;margin-bottom:18px;">บริษัท</div>
+        <div class="flex flex-col gap-3">
+          <a href="about.html" class="footer-link">เกี่ยวกับเรา</a>
+          <a href="gallery.html" class="footer-link">ผลงานของเรา</a>
+          <a href="contact.html" class="footer-link">ติดต่อเรา</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6b6f76;margin-bottom:18px;">ติดต่อ</div>
+        <div class="flex flex-col gap-3">
+          <span class="footer-link" style="cursor:default;">02-123-4567</span>
+          <span class="footer-link" style="cursor:default;">hello@aluxe.co.th</span>
+          <span class="footer-link" style="cursor:default;">จันทร์–เสาร์ 08:30–17:30</span>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-6" style="border-top:1px solid rgba(255,255,255,0.1);">
+      <div style="font-size:13px;color:#6b6f76;">© 2026 ALUXE Aluminium Co., Ltd. สงวนลิขสิทธิ์</div>
+      <div class="flex items-center gap-3">
+        <a href="#" class="btn-icon" style="background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12);color:#fff;" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.5 9.87v-6.99H7.9v-2.88h2.6V9.84c0-2.56 1.53-3.97 3.85-3.97 1.11 0 2.28.2 2.28.2v2.5h-1.29c-1.27 0-1.66.79-1.66 1.6v1.92h2.83l-.45 2.88h-2.38v6.99A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" class="btn-icon" style="background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12);color:#fff;" aria-label="LINE"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.8 2 10.5c0 3.32 2.27 6.2 5.6 7.68-.15.9-.53 3.05-.6 3.5-.09.55.2.55.42.4.17-.12 2.7-1.85 3.79-2.6.58.08 1.18.12 1.79.12 5.52 0 10-3.8 10-8.5S17.52 2 12 2z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="back-to-top" aria-label="กลับด้านบน">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><path d="m5 12 7-7 7 7"/></svg>
+</div>
+
+<script src="assets/main.js"></script>
+</body>
+</html>

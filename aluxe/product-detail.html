@@ -1,0 +1,283 @@
+<!-- product-detail.html -->
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Horizon Slide — ประตูบานเลื่อนอลูมิเนียม | ALUXE</title>
+<meta name="description" content="ประตูบานเลื่อนอลูมิเนียม Horizon Slide กระจกนิรภัย 10 มม. รางคู่ล้อสเตนเลส รับประกันโครงสร้าง 15 ปี" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/style.css" />
+<style>
+  .thumb { border-radius: 10px; overflow: hidden; height: 84px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s ease; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .thumb.thumb-active { border-color: var(--color-ink); }
+  .swatch { width: 34px; height: 34px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; box-shadow: 0 0 0 1px var(--color-line); transition: all 0.2s ease; }
+  .swatch.swatch-active { border-color: #fff; box-shadow: 0 0 0 2px var(--color-ink); }
+  .spec-row { display: flex; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--color-line); font-size: 14px; }
+  .spec-row:last-child { border-bottom: none; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="nav-shell">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="flex items-center gap-3 no-underline">
+      <div class="logo-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+      </div>
+      <span class="logo-word">ALU<span>XE</span></span>
+    </a>
+    <div class="hidden md:flex items-center gap-1">
+      <a href="index.html" class="nav-link">หน้าแรก</a>
+      <a href="products.html" class="nav-link active">สินค้า</a>
+      <a href="gallery.html" class="nav-link">ผลงานของเรา</a>
+      <a href="about.html" class="nav-link">เกี่ยวกับเรา</a>
+      <a href="contact.html" class="nav-link">ติดต่อเรา</a>
+    </div>
+    <div class="hidden md:flex items-center gap-4">
+      <a href="tel:021234567" class="flex items-center gap-2 no-underline" style="font-size:14px;font-weight:500;color:var(--color-ink);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        02-123-4567
+      </a>
+      <a href="contact.html#quote" class="btn btn-dark btn-sm">ขอใบเสนอราคา</a>
+    </div>
+    <button data-menu-toggle class="md:hidden btn-icon" aria-label="เมนู">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="index.html">หน้าแรก</a>
+  <a href="products.html">สินค้า</a>
+  <a href="gallery.html">ผลงานของเรา</a>
+  <a href="about.html">เกี่ยวกับเรา</a>
+  <a href="contact.html">ติดต่อเรา</a>
+  <div class="mt-8"><a href="contact.html#quote" class="btn btn-dark" style="width:100%;">ขอใบเสนอราคา</a></div>
+</div>
+
+<section style="padding-top:130px;padding-bottom:var(--section-py);">
+  <div class="wrap">
+
+    <!-- Breadcrumb -->
+    <div class="flex items-center gap-2 mb-10 reveal" style="font-size:13px;color:var(--color-ink-sub);">
+      <a href="index.html" class="footer-link" style="color:var(--color-ink-sub);">หน้าแรก</a>
+      <span>/</span>
+      <a href="products.html" class="footer-link" style="color:var(--color-ink-sub);">สินค้า</a>
+      <span>/</span>
+      <span style="color:var(--color-ink);">Horizon Slide</span>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-14">
+
+      <!-- Gallery -->
+      <div class="reveal">
+        <a href="#" data-lightbox-src="https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=1000&h=1000&fit=crop&q=80&auto=format" data-lightbox-group="product" data-lightbox-caption="Horizon Slide — มุมมองด้านหน้า" style="display:block;border-radius:20px;overflow:hidden;height:480px;margin-bottom:16px;">
+          <img id="mainProductImg" src="https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=1000&h=1000&fit=crop&q=80&auto=format" alt="ประตูบานเลื่อนอลูมิเนียม Horizon Slide" style="width:100%;height:100%;object-fit:cover;transition:opacity .15s ease;" />
+        </a>
+        <div class="grid grid-cols-4 gap-3">
+          <div class="thumb thumb-active" data-thumb-target="mainProductImg" data-thumb-src="https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=1000&h=1000&fit=crop&q=80&auto=format">
+            <img src="https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=200&h=200&fit=crop&q=80&auto=format" alt="มุมมองด้านหน้า" />
+          </div>
+          <div class="thumb" data-thumb-target="mainProductImg" data-thumb-src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1000&h=1000&fit=crop&q=80&auto=format">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=200&h=200&fit=crop&q=80&auto=format" alt="มุมมองระบบราง" />
+          </div>
+          <div class="thumb" data-thumb-target="mainProductImg" data-thumb-src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1000&h=1000&fit=crop&q=80&auto=format">
+            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=200&h=200&fit=crop&q=80&auto=format" alt="ติดตั้งจริงในบ้านตัวอย่าง" />
+          </div>
+          <div class="thumb" data-thumb-target="mainProductImg" data-thumb-src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=1000&h=1000&fit=crop&q=80&auto=format">
+            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=200&h=200&fit=crop&q=80&auto=format" alt="รายละเอียดขอบกระจก" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="reveal reveal-delay-1">
+        <span class="badge badge-accent mb-4">ประตูบานเลื่อน</span>
+        <h1 class="h-display" style="font-size:clamp(2rem,3.6vw,2.8rem);margin-bottom:14px;">Horizon Slide</h1>
+        <p class="text-sub mb-8" style="font-size:16px;">ประตูบานเลื่อนอลูมิเนียมกระจกใหญ่ ออกแบบเพื่อเชื่อมต่อพื้นที่ภายในและภายนอกอย่างไร้ขอบเขต ระบบรางคู่ล้อสเตนเลสให้การเลื่อนที่ลื่นไหลและเงียบสนิท เหมาะสำหรับบ้าน คอนโด และพื้นที่รับแขกที่ต้องการความโปร่งโล่ง</p>
+
+        <!-- Color swatches -->
+        <div class="mb-8">
+          <div style="font-size:13px;font-weight:600;margin-bottom:12px;">สีตัวเลือก</div>
+          <div class="flex items-center gap-3">
+            <div class="swatch swatch-active" style="background:#2b2b2b;" title="ดำเมทัลลิก"></div>
+            <div class="swatch" style="background:#9a9a92;" title="เทาธรรมชาติ"></div>
+            <div class="swatch" style="background:#f2f0ea;" title="ขาวมุก"></div>
+            <div class="swatch" style="background:#9a7b3f;" title="บรอนซ์ทอง"></div>
+            <span style="font-size:13px;color:var(--color-ink-sub);margin-left:6px;">และเฉดสีพ่นฝุ่นตามสั่งอีกกว่า 20 เฉด</span>
+          </div>
+        </div>
+
+        <!-- Quick specs -->
+        <div class="mb-8" style="background:var(--color-surface-2);border-radius:14px;padding:20px 22px;">
+          <div class="spec-row"><span style="color:var(--color-ink-sub);">วัสดุโครง</span><span style="font-weight:500;">อลูมิเนียมเกรด 6063-T5</span></div>
+          <div class="spec-row"><span style="color:var(--color-ink-sub);">กระจก</span><span style="font-weight:500;">นิรภัย Tempered 10 มม. (Low-E)</span></div>
+          <div class="spec-row"><span style="color:var(--color-ink-sub);">ระบบราง</span><span style="font-weight:500;">รางคู่ ล้อสเตนเลส</span></div>
+          <div class="spec-row"><span style="color:var(--color-ink-sub);">ขนาดผลิตสูงสุด</span><span style="font-weight:500;">3.0 × 2.4 ม. ต่อบาน</span></div>
+          <div class="spec-row"><span style="color:var(--color-ink-sub);">การรับประกัน</span><span style="font-weight:500;">โครงสร้าง 15 ปี / อุปกรณ์ราง 5 ปี</span></div>
+        </div>
+
+        <div class="flex items-center gap-3 flex-wrap mb-8">
+          <a href="contact.html#quote" class="btn btn-dark">ขอใบเสนอราคาสำหรับหน้างานนี้</a>
+          <a href="tel:021234567" class="btn btn-outline">โทรสอบถาม</a>
+        </div>
+
+        <div class="flex items-center gap-6" style="border-top:1px solid var(--color-line);padding-top:20px;">
+          <div class="flex items-center gap-2" style="font-size:13px;color:var(--color-ink-sub);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            รับประกันคุณภาพ
+          </div>
+          <div class="flex items-center gap-2" style="font-size:13px;color:var(--color-ink-sub);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            ผลิตตามหน้างานจริง
+          </div>
+          <div class="flex items-center gap-2" style="font-size:13px;color:var(--color-ink-sub);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/></svg>
+            ติดตั้งโดยทีมช่างมืออาชีพ
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="grid md:grid-cols-2 gap-14 mt-20 reveal">
+      <div>
+        <h2 class="h-section mb-5" style="font-size:1.7rem;">รายละเอียดสินค้า</h2>
+        <p class="text-sub" style="font-size:15px;">Horizon Slide ผลิตจากอลูมิเนียมเกรด 6063-T5 ที่ผ่านกระบวนการพ่นสีฝุ่น (Powder Coating) มาตรฐานสากล ทนต่อรังสี UV และความชื้น ไม่ลอกไม่ซีดตลอดอายุการใช้งาน ตัวบานประตูใช้กระจกนิรภัย Tempered หนา 10 มม. เสริมคุณสมบัติ Low-E เพื่อลดความร้อนจากแสงแดดโดยไม่บังทัศนียภาพ ระบบรางคู่พร้อมล้อสเตนเลสรับน้ำหนักสูง ทำให้เลื่อนเปิด-ปิดได้ลื่นไหลไม่มีเสียงรบกวนแม้ใช้งานต่อเนื่องหลายปี</p>
+      </div>
+      <div>
+        <h2 class="h-section mb-5" style="font-size:1.7rem;">การรับประกัน</h2>
+        <div class="feature-row" style="padding-top:0;">
+          <div class="feature-num">15</div>
+          <div>
+            <div style="font-weight:600;font-size:14px;margin-bottom:2px;">ปี รับประกันโครงสร้างอลูมิเนียม</div>
+            <div style="font-size:13px;color:var(--color-ink-sub);">ครอบคลุมการบิดงอ สีลอก และสนิม</div>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-num">5</div>
+          <div>
+            <div style="font-weight:600;font-size:14px;margin-bottom:2px;">ปี รับประกันอุปกรณ์ราง</div>
+            <div style="font-size:13px;color:var(--color-ink-sub);">ล้อเลื่อน มือจับ และอุปกรณ์ล็อก</div>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-num">1</div>
+          <div>
+            <div style="font-weight:600;font-size:14px;margin-bottom:2px;">ปี บริการตรวจเช็กฟรี</div>
+            <div style="font-size:13px;color:var(--color-ink-sub);">ทีมช่างเข้าตรวจสภาพหลังส่งมอบงาน</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Related products -->
+    <div class="mt-20 reveal">
+      <div class="eyebrow mb-4">สินค้าที่เกี่ยวข้อง</div>
+      <h2 class="h-section mb-8" style="font-size:1.7rem;">รุ่นอื่นในหมวดประตูบานเลื่อน</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <a href="product-detail.html" class="p-card">
+          <div class="p-card-img"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=460&h=360&fit=crop&q=80&auto=format" alt="Vista Slide XL" /></div>
+          <div style="padding:18px;">
+            <div style="font-weight:600;font-size:15px;">Vista Slide XL</div>
+            <div style="font-size:13px;color:var(--color-ink-sub);">บานกว้างพิเศษ</div>
+          </div>
+        </a>
+        <a href="product-detail.html" class="p-card">
+          <div class="p-card-img"><img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=460&h=360&fit=crop&q=80&auto=format" alt="Skyline Track" /></div>
+          <div style="padding:18px;">
+            <div style="font-weight:600;font-size:15px;">Skyline Track</div>
+            <div style="font-size:13px;color:var(--color-ink-sub);">หน้าต่างบานเลื่อนระบบรางคู่</div>
+          </div>
+        </a>
+        <a href="product-detail.html" class="p-card">
+          <div class="p-card-img"><img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=460&h=360&fit=crop&q=80&auto=format" alt="ShieldNet Pro" /></div>
+          <div style="padding:18px;">
+            <div style="font-weight:600;font-size:15px;">ShieldNet Pro</div>
+            <div style="font-size:13px;color:var(--color-ink-sub);">มุ้งลวดกันแมลงเกรดพรีเมียม</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="section-dark" style="padding:80px 0 32px;">
+  <div class="wrap">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-10 mb-14">
+      <div class="col-span-2">
+        <a href="index.html" class="flex items-center gap-3 no-underline mb-5">
+          <div class="logo-mark" style="background:#fff;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+          </div>
+          <span class="logo-word" style="color:#fff;">ALU<span style="color:var(--color-accent);">XE</span></span>
+        </a>
+        <p style="font-size:14px;color:#a3a6ac;line-height:1.8;max-width:280px;">ผู้ผลิตและติดตั้งประตู-หน้าต่างอลูมิเนียมพรีเมียม ดีไซน์เรียบหรู แข็งแรงทนทาน โดยทีมช่างมืออาชีพ ตั้งแต่ปี 2011</p>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6b6f76;margin-bottom:18px;">สินค้า</div>
+        <div class="flex flex-col gap-3">
+          <a href="products.html#sliding-door" class="footer-link">ประตูบานเลื่อน</a>
+          <a href="products.html#swing-door" class="footer-link">ประตูบานสวิง</a>
+          <a href="products.html#sliding-window" class="footer-link">หน้าต่างบานเลื่อน</a>
+          <a href="products.html#insect-screen" class="footer-link">มุ้งลวด</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6b6f76;margin-bottom:18px;">บริษัท</div>
+        <div class="flex flex-col gap-3">
+          <a href="about.html" class="footer-link">เกี่ยวกับเรา</a>
+          <a href="gallery.html" class="footer-link">ผลงานของเรา</a>
+          <a href="contact.html" class="footer-link">ติดต่อเรา</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6b6f76;margin-bottom:18px;">ติดต่อ</div>
+        <div class="flex flex-col gap-3">
+          <span class="footer-link" style="cursor:default;">02-123-4567</span>
+          <span class="footer-link" style="cursor:default;">hello@aluxe.co.th</span>
+          <span class="footer-link" style="cursor:default;">จันทร์–เสาร์ 08:30–17:30</span>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-6" style="border-top:1px solid rgba(255,255,255,0.1);">
+      <div style="font-size:13px;color:#6b6f76;">© 2026 ALUXE Aluminium Co., Ltd. สงวนลิขสิทธิ์</div>
+      <div class="flex items-center gap-3">
+        <a href="#" class="btn-icon" style="background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12);color:#fff;" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.5 9.87v-6.99H7.9v-2.88h2.6V9.84c0-2.56 1.53-3.97 3.85-3.97 1.11 0 2.28.2 2.28.2v2.5h-1.29c-1.27 0-1.66.79-1.66 1.6v1.92h2.83l-.45 2.88h-2.38v6.99A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" class="btn-icon" style="background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12);color:#fff;" aria-label="LINE"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.8 2 10.5c0 3.32 2.27 6.2 5.6 7.68-.15.9-.53 3.05-.6 3.5-.09.55.2.55.42.4.17-.12 2.7-1.85 3.79-2.6.58.08 1.18.12 1.79.12 5.52 0 10-3.8 10-8.5S17.52 2 12 2z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox">
+  <div class="lightbox-close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+  <div class="lightbox-nav lightbox-prev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></div>
+  <div class="lightbox-nav lightbox-next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
+  <img src="" alt="" />
+  <div class="lightbox-caption"></div>
+</div>
+
+<div class="back-to-top" aria-label="กลับด้านบน">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><path d="m5 12 7-7 7 7"/></svg>
+</div>
+
+<script src="assets/main.js"></script>
+<script>
+  document.querySelectorAll('.swatch').forEach(sw => {
+    sw.addEventListener('click', () => {
+      document.querySelectorAll('.swatch').forEach(s => s.classList.remove('swatch-active'));
+      sw.classList.add('swatch-active');
+    });
+  });
+</script>
+</body>
+</html>

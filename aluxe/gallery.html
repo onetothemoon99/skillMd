@@ -1,0 +1,212 @@
+<!-- gallery.html -->
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ผลงานของเรา — ALUXE Aluminium</title>
+<meta name="description" content="ผลงานการติดตั้งประตูและหน้าต่างอลูมิเนียมจริงของ ALUXE ในบ้านเดี่ยว ทาวน์โฮม คอนโด และอาคารพาณิชย์" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/style.css" />
+<style>
+  .g-item { position: relative; border-radius: 14px; overflow: hidden; cursor: zoom-in; }
+  .g-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(.4,0,.2,1); }
+  .g-item:hover img { transform: scale(1.08); }
+  .g-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(17,19,22,0.7) 100%); opacity: 0; transition: opacity 0.3s ease; display: flex; align-items: flex-end; padding: 18px; }
+  .g-item:hover .g-overlay { opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="nav-shell">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="flex items-center gap-3 no-underline">
+      <div class="logo-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+      </div>
+      <span class="logo-word">ALU<span>XE</span></span>
+    </a>
+    <div class="hidden md:flex items-center gap-1">
+      <a href="index.html" class="nav-link">หน้าแรก</a>
+      <a href="products.html" class="nav-link">สินค้า</a>
+      <a href="gallery.html" class="nav-link active">ผลงานของเรา</a>
+      <a href="about.html" class="nav-link">เกี่ยวกับเรา</a>
+      <a href="contact.html" class="nav-link">ติดต่อเรา</a>
+    </div>
+    <div class="hidden md:flex items-center gap-4">
+      <a href="tel:021234567" class="flex items-center gap-2 no-underline" style="font-size:14px;font-weight:500;color:var(--color-ink);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        02-123-4567
+      </a>
+      <a href="contact.html#quote" class="btn btn-dark btn-sm">ขอใบเสนอราคา</a>
+    </div>
+    <button data-menu-toggle class="md:hidden btn-icon" aria-label="เมนู">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="index.html">หน้าแรก</a>
+  <a href="products.html">สินค้า</a>
+  <a href="gallery.html">ผลงานของเรา</a>
+  <a href="about.html">เกี่ยวกับเรา</a>
+  <a href="contact.html">ติดต่อเรา</a>
+  <div class="mt-8"><a href="contact.html#quote" class="btn btn-dark" style="width:100%;">ขอใบเสนอราคา</a></div>
+</div>
+
+<!-- PAGE HEADER -->
+<section style="padding-top:150px;padding-bottom:56px;">
+  <div class="wrap reveal">
+    <div class="eyebrow mb-4">ผลงานของเรา</div>
+    <h1 class="h-display" style="font-size:clamp(2.2rem,4vw,3.2rem);">บ้านจริง งานจริง จากทีม ALUXE</h1>
+    <p class="text-sub mt-4" style="max-width:560px;font-size:16px;">รวมผลงานการติดตั้งประตูและหน้าต่างอลูมิเนียม จากบ้านเดี่ยว ทาวน์โฮม คอนโด จนถึงอาคารพาณิชย์ทั่วประเทศ</p>
+  </div>
+</section>
+
+<!-- FILTER + MASONRY -->
+<section style="padding-bottom:var(--section-py);">
+  <div class="wrap">
+    <div data-filter-group=".gallery-item" class="flex items-center gap-3 mb-12 reveal" style="overflow-x:auto;padding-bottom:4px;">
+      <div class="chip active" data-filter="all">ทั้งหมด</div>
+      <div class="chip" data-filter="house">บ้านเดี่ยว</div>
+      <div class="chip" data-filter="townhome">ทาวน์โฮม</div>
+      <div class="chip" data-filter="condo">คอนโด</div>
+      <div class="chip" data-filter="commercial">อาคารพาณิชย์</div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+
+      <div class="g-item gallery-item reveal" data-category="house" style="height:320px;" data-lightbox-src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&h=700&fit=crop&q=80&auto=format" data-lightbox-group="gallery" data-lightbox-caption="บ้านเดี่ยว โครงการ The Grand — ประตูบานเลื่อน Horizon Slide">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500&h=400&fit=crop&q=80&auto=format" alt="บ้านเดี่ยว The Grand" />
+        <div class="g-overlay"><span style="color:#fff;font-size:13px;font-weight:500;">บ้านเดี่ยว The Grand</span></div>
+      </div>
+      <div class="g-item gallery-item reveal reveal-delay-1" data-category="condo" style="height:420px;" data-lightbox-src="https://images.unsplash.com/photo-1580216643062-cf460548a66a?w=900&h=1100&fit=crop&q=80&auto=format" data-lightbox-group="gallery" data-lightbox-caption="คอนโดมิเนียม พระราม 9 — มุ้งลวด ShieldNet Slim">
+        <img src="https://images.unsplash.com/photo-1580216643062-cf460548a66a?w=500&h=650&fit=crop&q=80&auto=format" alt="คอนโดมิเนียม พระราม 9" />
+        <div class="g-overlay"><span style="color:#fff;font-size:13px;font-weight:500;">คอนโดมิเนียม พระราม 9</span></div>
+      </div>
+      <div class="g-item gallery-item reveal reveal-delay-2" data-category="townhome" style="height:320px;" data-lightbox-src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=900&h=700&fit=crop&q=80&auto=format" data-lightbox-group="gallery" data-lightbox-caption="ทาวน์โฮม บางนา — หน้าต่างบานเลื่อน Skyline Track">
+        <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=500&h=400&fit=crop&q=80&auto=format" alt="ทาวน์โฮม บางนา" />
+        <div class="g-overlay"><span style="color:#fff;font-size:13px;font-weight:500;">ทาวน์โฮม บางนา</span></div>
+      </div>
+
+      <div class="g-item gallery-item reveal" data-category="commercial" style="height:420px;" data-lightbox-src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=900&h=1100&fit=crop&q=80&auto=format" data-lightbox-group="gallery" data-lightbox-caption="อาคารพาณิชย์ 3 ชั้น นนทบุรี — ประตูบานสวิง Aria Swing">
+        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=500&h=650&fit=crop&q=80&auto=format" alt="อาคารพาณิชย์ นนทบุรี" />
+        <div class="g-overlay"><span style="color:#fff;font-size:13px;font-weight:500;">อาคารพาณิชย์ นนทบุรี</span></div>
+      </div>
+      <div class="g-item gallery-item reveal reveal-delay-1" data-category="house" style="height:320px;" data-lightbox-src="https://images.unsplash.com/photo-1449844908441-8829872d2607?w=900&h=700&fit=crop&q=80&auto=format" data-lightbox-group="gallery" data-lightbox-caption="บ้านเดี่ยว สายไหม — ราวกันตก GuardRail Glass">
+        <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?w=500&h=400&fit=crop&q=80&auto=format" alt="บ้านเดี่ยว สายไหม" />
+        <div class="g-overlay"><span style="color:#fff;font-size:13px;font-weight:500;">บ้านเดี่ยว สายไหม</span></div>
+      </div>
+      <div class="g-item gallery-item reveal reveal-delay-2" data-category="condo" style="height:320px;" data-lightbox-src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=900&h=700&fit=crop&q=80&auto=format" data-lightbox-group="gallery" data-lightbox-caption="คอนโดมิเนียม อารีย์ — หน้าต่างบานกระทุ้ง AirVent">
+        <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500&h=400&fit=crop&q=80&auto=format" alt="คอนโดมิเนียม อารีย์" />
+        <div class="g-overlay"><span style="color:#fff;font-size:13px;font-weight:500;">คอนโดมิเนียม อารีย์</span></div>
+      </div>
+
+      <div class="g-item gallery-item reveal" data-category="townhome" style="height:420px;" data-lightbox-src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=900&h=1100&fit=crop&q=80&auto=format" data-lightbox-group="gallery" data-lightbox-caption="ทาวน์โฮม ลาดพร้าว — ประตูบานเลื่อน Vista Slide XL">
+        <img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=500&h=650&fit=crop&q=80&auto=format" alt="ทาวน์โฮม ลาดพร้าว" />
+        <div class="g-overlay"><span style="color:#fff;font-size:13px;font-weight:500;">ทาวน์โฮม ลาดพร้าว</span></div>
+      </div>
+      <div class="g-item gallery-item reveal reveal-delay-1" data-category="house" style="height:320px;" data-lightbox-src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=900&h=700&fit=crop&q=80&auto=format" data-lightbox-group="gallery" data-lightbox-caption="บ้านเดี่ยว รามอินทรา — มุ้งลวด ShieldNet Pro">
+        <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=500&h=400&fit=crop&q=80&auto=format" alt="บ้านเดี่ยว รามอินทรา" />
+        <div class="g-overlay"><span style="color:#fff;font-size:13px;font-weight:500;">บ้านเดี่ยว รามอินทรา</span></div>
+      </div>
+      <div class="g-item gallery-item reveal reveal-delay-2" data-category="commercial" style="height:320px;" data-lightbox-src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=900&h=700&fit=crop&q=80&auto=format" data-lightbox-group="gallery" data-lightbox-caption="สำนักงาน สาทร — ประตูบานสวิง Nova Compact">
+        <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500&h=400&fit=crop&q=80&auto=format" alt="สำนักงาน สาทร" />
+        <div class="g-overlay"><span style="color:#fff;font-size:13px;font-weight:500;">สำนักงาน สาทร</span></div>
+      </div>
+
+      <div class="g-item gallery-item reveal" data-category="condo" style="height:320px;" data-lightbox-src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=900&h=700&fit=crop&q=80&auto=format" data-lightbox-group="gallery" data-lightbox-caption="คอนโดมิเนียม บางกะปิ — หน้าต่างบานเลื่อน Breeze Slim">
+        <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=500&h=400&fit=crop&q=80&auto=format" alt="คอนโดมิเนียม บางกะปิ" />
+        <div class="g-overlay"><span style="color:#fff;font-size:13px;font-weight:500;">คอนโดมิเนียม บางกะปิ</span></div>
+      </div>
+      <div class="g-item gallery-item reveal reveal-delay-1" data-category="house" style="height:420px;" data-lightbox-src="https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=900&h=1100&fit=crop&q=80&auto=format" data-lightbox-group="gallery" data-lightbox-caption="บ้านเดี่ยว ปิ่นเกล้า — ประตูบานเลื่อน Horizon Slide">
+        <img src="https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=500&h=650&fit=crop&q=80&auto=format" alt="บ้านเดี่ยว ปิ่นเกล้า" />
+        <div class="g-overlay"><span style="color:#fff;font-size:13px;font-weight:500;">บ้านเดี่ยว ปิ่นเกล้า</span></div>
+      </div>
+      <div class="g-item gallery-item reveal reveal-delay-2" data-category="townhome" style="height:320px;" data-lightbox-src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900&h=700&fit=crop&q=80&auto=format" data-lightbox-group="gallery" data-lightbox-caption="ทาวน์โฮม รัชดา — ราวกันตก GuardRail Line">
+        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500&h=400&fit=crop&q=80&auto=format" alt="ทาวน์โฮม รัชดา" />
+        <div class="g-overlay"><span style="color:#fff;font-size:13px;font-weight:500;">ทาวน์โฮม รัชดา</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section-alt" style="padding:var(--section-py-sm) 0;">
+  <div class="wrap text-center reveal">
+    <h2 class="h-section mb-4">อยากให้บ้านคุณเป็นผลงานต่อไป?</h2>
+    <p class="text-sub mb-8" style="max-width:480px;margin-left:auto;margin-right:auto;">นัดหมายทีมช่างเข้าสำรวจหน้างานฟรี พร้อมใบเสนอราคาภายใน 24 ชั่วโมง</p>
+    <a href="contact.html#quote" class="btn btn-dark">นัดสำรวจหน้างานฟรี</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="section-dark" style="padding:80px 0 32px;">
+  <div class="wrap">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-10 mb-14">
+      <div class="col-span-2">
+        <a href="index.html" class="flex items-center gap-3 no-underline mb-5">
+          <div class="logo-mark" style="background:#fff;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#111316" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+          </div>
+          <span class="logo-word" style="color:#fff;">ALU<span style="color:var(--color-accent);">XE</span></span>
+        </a>
+        <p style="font-size:14px;color:#a3a6ac;line-height:1.8;max-width:280px;">ผู้ผลิตและติดตั้งประตู-หน้าต่างอลูมิเนียมพรีเมียม ดีไซน์เรียบหรู แข็งแรงทนทาน โดยทีมช่างมืออาชีพ ตั้งแต่ปี 2011</p>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6b6f76;margin-bottom:18px;">สินค้า</div>
+        <div class="flex flex-col gap-3">
+          <a href="products.html#sliding-door" class="footer-link">ประตูบานเลื่อน</a>
+          <a href="products.html#swing-door" class="footer-link">ประตูบานสวิง</a>
+          <a href="products.html#sliding-window" class="footer-link">หน้าต่างบานเลื่อน</a>
+          <a href="products.html#insect-screen" class="footer-link">มุ้งลวด</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6b6f76;margin-bottom:18px;">บริษัท</div>
+        <div class="flex flex-col gap-3">
+          <a href="about.html" class="footer-link">เกี่ยวกับเรา</a>
+          <a href="gallery.html" class="footer-link">ผลงานของเรา</a>
+          <a href="contact.html" class="footer-link">ติดต่อเรา</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#6b6f76;margin-bottom:18px;">ติดต่อ</div>
+        <div class="flex flex-col gap-3">
+          <span class="footer-link" style="cursor:default;">02-123-4567</span>
+          <span class="footer-link" style="cursor:default;">hello@aluxe.co.th</span>
+          <span class="footer-link" style="cursor:default;">จันทร์–เสาร์ 08:30–17:30</span>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-6" style="border-top:1px solid rgba(255,255,255,0.1);">
+      <div style="font-size:13px;color:#6b6f76;">© 2026 ALUXE Aluminium Co., Ltd. สงวนลิขสิทธิ์</div>
+      <div class="flex items-center gap-3">
+        <a href="#" class="btn-icon" style="background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12);color:#fff;" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.5 9.87v-6.99H7.9v-2.88h2.6V9.84c0-2.56 1.53-3.97 3.85-3.97 1.11 0 2.28.2 2.28.2v2.5h-1.29c-1.27 0-1.66.79-1.66 1.6v1.92h2.83l-.45 2.88h-2.38v6.99A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" class="btn-icon" style="background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12);color:#fff;" aria-label="LINE"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.8 2 10.5c0 3.32 2.27 6.2 5.6 7.68-.15.9-.53 3.05-.6 3.5-.09.55.2.55.42.4.17-.12 2.7-1.85 3.79-2.6.58.08 1.18.12 1.79.12 5.52 0 10-3.8 10-8.5S17.52 2 12 2z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox">
+  <div class="lightbox-close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+  <div class="lightbox-nav lightbox-prev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></div>
+  <div class="lightbox-nav lightbox-next"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
+  <img src="" alt="" />
+  <div class="lightbox-caption"></div>
+</div>
+
+<div class="back-to-top" aria-label="กลับด้านบน">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><path d="m5 12 7-7 7 7"/></svg>
+</div>
+
+<script src="assets/main.js"></script>
+</body>
+</html>
